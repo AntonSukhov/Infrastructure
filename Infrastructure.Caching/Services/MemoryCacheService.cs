@@ -3,7 +3,7 @@ using Microsoft.Extensions.Caching.Memory;
 namespace Infrastructure.Caching.Services;
 
 /// <summary>
-/// Реализация обобщенного кэша в пямяти.
+/// Реализация обобщенного кэша в памяти.
 /// </summary>
 /// <typeparam name="TKey">Тип ключа для кэша.</typeparam>
 /// <typeparam name="TValue">Тип значения для кэша.</typeparam>
@@ -36,6 +36,7 @@ public class MemoryCacheService<TKey, TValue> : ICacheService<TKey, TValue>
     public void Set(TKey key, TValue value, DateTimeOffset absoluteExpiration)
     {
         ArgumentNullException.ThrowIfNull(key, nameof(key));
+        ValidateKeyNotNullOrWhiteSpace(key);
         _memoryCache.Set(key, value, absoluteExpiration);
     }
 
@@ -43,6 +44,7 @@ public class MemoryCacheService<TKey, TValue> : ICacheService<TKey, TValue>
     public bool TryGetValue(TKey key, out TValue? value)
     {
         ArgumentNullException.ThrowIfNull(key, nameof(key));
+        ValidateKeyNotNullOrWhiteSpace(key);
         return _memoryCache.TryGetValue(key, out value);
     }
 
@@ -50,8 +52,23 @@ public class MemoryCacheService<TKey, TValue> : ICacheService<TKey, TValue>
     public void Remove(TKey key)
     {
         ArgumentNullException.ThrowIfNull(key, nameof(key));
+        ValidateKeyNotNullOrWhiteSpace(key);
         _memoryCache.Remove(key);
     }
+
+
+    /// <summary>
+    /// Проверяет, что ключ не является null, пустой строкой или строкой только из пробелов.
+    /// </summary>
+    /// <param name="key">Ключ для проверки.</param>
+    private static void ValidateKeyNotNullOrWhiteSpace(TKey key)
+    {
+        if (key is string keyAsString)
+        {
+            ArgumentException.ThrowIfNullOrWhiteSpace(keyAsString, nameof(key));
+        }
+    }
+
 
     #endregion
 }
