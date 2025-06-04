@@ -14,7 +14,7 @@ public class ForIncorrectInputParamsTestData : TheoryData<string?, string?, Date
     {
         var utcNow = DateTime.UtcNow;
 
-        Add(null, "Значение 1", new DateTimeOffset(utcNow.AddMinutes(1)));
+        Add(null, "Значение 1", new DateTimeOffset(utcNow.AddMinutes(4)));
         Add(string.Empty, "Значение 2", new DateTimeOffset(utcNow.AddMinutes(5)));
         Add(" ", "Значение 3", new DateTimeOffset(utcNow.AddMinutes(10)));
     }
