@@ -3,5 +3,14 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageId>Infrastructure.Common</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Sukhov A.A.</Authors>
+    <Description> Пакет предназначен для возможности использовать сервисы, помощники, модели и другие компоненты общего назначения в приложениях .NET. 
+        Он включает в себя инструменты для сериализации и десериализации данных, управления пагинацией, а также вспомогательные классы для выполнения рутинных задач. 
+        Этот пакет упрощает разработку, позволяя разработчикам сосредоточиться на бизнес-логике, а не на технических деталях. 
+        В будущем планируется добавление дополнительных классов и интерфейсов общего назначения для расширения функциональности.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/AntonSukhov/Infrastructure.git</RepositoryUrl>
   </PropertyGroup>
 </Project>

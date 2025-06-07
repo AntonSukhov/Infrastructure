@@ -73,12 +73,12 @@ public static class ForCorrectInputParamsTestData
         return new TheoryData<EmployeeModel, JsonSerializerOptions?, CancellationToken>
         {
             {employee, JsonSerializerOptions.Default, default},
-            // {employee, null, default },
-            // {employeeWithEmptyFio, JsonSerializerOptions.Default, default},
-            // {employeeWithZeroSalary, JsonSerializerOptions.Default, default},
-            // {employeeWithMaxSalary, JsonSerializerOptions.Default, default},
-            // {dismissedEmployee, JsonSerializerOptions.Default, default},
-            // {employeeWithUndefinedGender, JsonSerializerOptions.Default, default},        
+            {employee, null, default },
+            {employeeWithEmptyFio, JsonSerializerOptions.Default, default},
+            {employeeWithZeroSalary, JsonSerializerOptions.Default, default},
+            {employeeWithMaxSalary, JsonSerializerOptions.Default, default},
+            {dismissedEmployee, JsonSerializerOptions.Default, default},
+            {employeeWithUndefinedGender, JsonSerializerOptions.Default, default},        
         };
     }
 
