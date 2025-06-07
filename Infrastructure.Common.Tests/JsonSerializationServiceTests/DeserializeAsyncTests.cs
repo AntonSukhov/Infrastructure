@@ -11,6 +11,12 @@ namespace Infrastructure.Common.Tests.JsonSerializationServiceTests;
 /// </summary>
 public class DeserializeAsyncTests
 {
+    #region Поля
+
+    private readonly IJsonSerializationService _jsonSerializationService = new JsonSerializationService();
+
+    #endregion
+
     #region Методы
 
     /// <summary>
@@ -25,7 +31,7 @@ public class DeserializeAsyncTests
                 MemberType = typeof(ForCorrectInputParamsTestData))]
     public async Task ForCorrectInputParams(string employeeJson, JsonSerializerOptions? jsonSerializerOptions, CancellationToken cancellationToken)
     {
-        var expected = await JsonSerializationService.DeserializeAsync<EmployeeModel>(employeeJson, jsonSerializerOptions, cancellationToken);
+        var expected = await _jsonSerializationService.DeserializeAsync<EmployeeModel>(employeeJson, jsonSerializerOptions, cancellationToken);
 
         expected.Should().NotBeNull()
                                 .And
@@ -48,7 +54,7 @@ public class DeserializeAsyncTests
                 MemberType = typeof(ForIncorrectInputParamsTestData))]
     public async Task ForIncorrectInputParams(string employeeJson, JsonSerializerOptions? jsonSerializerOptions, CancellationToken cancellationToken)
     {
-        var excepted = async () => await JsonSerializationService.DeserializeAsync<EmployeeModel>(employeeJson,
+        var excepted = async () => await _jsonSerializationService.DeserializeAsync<EmployeeModel>(employeeJson,
         jsonSerializerOptions, cancellationToken);
 
         var exception = await excepted.Should().ThrowAsync<Exception>();

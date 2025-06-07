@@ -11,6 +11,12 @@ namespace Infrastructure.Common.Tests.JsonSerializationServiceTests;
 /// </summary>
 public class SerializeAsyncTests
 {
+    #region Поля
+
+    private readonly IJsonSerializationService _jsonSerializationService = new JsonSerializationService();
+
+    #endregion
+
     #region Методы
 
     /// <summary>
@@ -25,11 +31,11 @@ public class SerializeAsyncTests
                 MemberType =typeof(ForCorrectInputParamsTestData))]
     public async Task ForCorrectInputParams(EmployeeModel employee, JsonSerializerOptions? jsonSerializerOptions, CancellationToken cancellationToken)
     {
-        var expected = await JsonSerializationService.SerializeAsync(employee, jsonSerializerOptions, cancellationToken);
+        var expected = await _jsonSerializationService.SerializeAsync(employee, jsonSerializerOptions, cancellationToken);
 
         expected.Should().NotBeNullOrWhiteSpace();
 
-        var employeeExpected = await JsonSerializationService.DeserializeAsync<EmployeeModel>(expected, jsonSerializerOptions, cancellationToken);
+        var employeeExpected = await _jsonSerializationService.DeserializeAsync<EmployeeModel>(expected, jsonSerializerOptions, cancellationToken);
 
         employeeExpected.Should().NotBeNull()
                                 .And
@@ -55,7 +61,7 @@ public class SerializeAsyncTests
     {
         var expected = await Assert.ThrowsAsync<ArgumentNullException>
         (
-            async () => await JsonSerializationService.SerializeAsync(employee, jsonSerializerOptions, cancellationToken)
+            async () => await _jsonSerializationService.SerializeAsync(employee, jsonSerializerOptions, cancellationToken)
         );
 
         expected.Should().NotBeNull();                                             

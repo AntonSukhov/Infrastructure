@@ -1,9 +1,9 @@
-namespace Infrastructure.Common.Services;
+namespace Infrastructure.Common.Helpers;
 
 /// <summary>
-/// Сервис для сохранения и получения постоянных значений.
+/// Помощник работы с постоянными значениями.
 /// </summary>
-public static class ConstantsService
+public static class ConstantsHelper
 {
     #region Константы
 

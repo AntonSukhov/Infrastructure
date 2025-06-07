@@ -1,5 +1,5 @@
 using System.Text.Json;
-using Infrastructure.Common.Services;
+using Infrastructure.Common.Helpers;
 
 namespace Infrastructure.Common.Tests.TestData.JsonSerializationService.DeserializeAsync;
 
@@ -19,8 +19,8 @@ public static class ForIncorrectInputParamsTestData
         return new TheoryData<string, JsonSerializerOptions?, CancellationToken>
         {
             { string.Empty, JsonSerializerOptions.Default, default },
-            { ConstantsService.Space, JsonSerializerOptions.Default, default },
-            { ConstantsService.DoubleSpace, JsonSerializerOptions.Default, default },
+            { ConstantsHelper.Space, JsonSerializerOptions.Default, default },
+            { ConstantsHelper.DoubleSpace, JsonSerializerOptions.Default, default },
             { employeeWithUndefinedGender, JsonSerializerOptions.Default, default },
             { employeeWithUndefinedGender, null, default }
         };
