@@ -14,14 +14,15 @@ public class SerializeAsyncTests
     #region Методы
 
     /// <summary>
-    /// 
+    /// Тест проверки метода асинхронной сериализации объект в строку формата JSON для корректных входных параметров.
     /// </summary>
-    /// <param name="employee"></param>
-    /// <param name="jsonSerializerOptions"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="employee">Объект, который нужно сериализовать.</param>
+    /// <param name="jsonSerializerOptions">Опции сериализации.</param>
+    /// <param name="cancellationToken">Токен отмены для асинхронной операции.</param>
+    /// <returns>Асинхронная задача, представляющая результат выполнения теста.</returns>
     [Theory]
-    [ClassData(typeof(ForCorrectInputParamsTestData))]
+    [MemberData(nameof(ForCorrectInputParamsTestData.GetTestData),
+                MemberType =typeof(ForCorrectInputParamsTestData))]
     public async Task ForCorrectInputParams(EmployeeModel employee, JsonSerializerOptions? jsonSerializerOptions, CancellationToken cancellationToken)
     {
         var expected = await JsonSerializationService.SerializeAsync(employee, jsonSerializerOptions, cancellationToken);
@@ -37,7 +38,27 @@ public class SerializeAsyncTests
                                                            p.Gender == employee.Gender &&
                                                            p.Birthdate == employee.Birthdate &&
                                                            p.Salary == employee.Salary &&
-                                                           p.Dismissed == employee.Dismissed);                                             
+                                                           p.Dismissed == employee.Dismissed);
+    }
+    
+    /// <summary>
+    /// Тест проверки метода асинхронной сериализации объект в строку формата JSON для некорректных входных параметров.
+    /// </summary>
+    /// <param name="employee">Объект, который нужно сериализовать.</param>
+    /// <param name="jsonSerializerOptions">Опции сериализации.</param>
+    /// <param name="cancellationToken">Токен отмены для асинхронной операции.</param>
+    /// <returns>Асинхронная задача, представляющая результат выполнения теста.</returns>
+    [Theory]
+    [MemberData(nameof(ForIncorrectInputParamsTestData.GetTestData),
+                MemberType =typeof(ForIncorrectInputParamsTestData))]
+    public async Task ForIncorrectInputParams(EmployeeModel? employee, JsonSerializerOptions? jsonSerializerOptions, CancellationToken cancellationToken)
+    {
+        var expected = await Assert.ThrowsAsync<ArgumentNullException>
+        (
+            async () => await JsonSerializationService.SerializeAsync(employee, jsonSerializerOptions, cancellationToken)
+        );
+
+        expected.Should().NotBeNull();                                             
     }
     #endregion
 }

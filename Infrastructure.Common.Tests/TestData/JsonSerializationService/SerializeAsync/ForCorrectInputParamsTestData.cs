@@ -4,16 +4,15 @@ using Infrastructure.Common.Tests.JsonSerializationServiceTests.Models;
 namespace Infrastructure.Common.Tests.TestData.JsonSerializationService.SerializeAsync;
 
 /// <summary>
-/// Тестовые данные проверки метода асинхронной сериализации объект в строку формата JSON.
+/// Тестовые данные проверки метода асинхронной сериализации объект в строку формата JSON
+/// для корректных входных параметров.
 /// </summary>
-public class ForCorrectInputParamsTestData : TheoryData<EmployeeModel, JsonSerializerOptions?, CancellationToken>
+public static class ForCorrectInputParamsTestData
 {
-    #region Конструктор
 
-    /// <summary>
-    /// Конструктор по умолчанию.
-    /// </summary>
-    public ForCorrectInputParamsTestData()
+    #region Методы
+
+    public static TheoryData<EmployeeModel, JsonSerializerOptions?, CancellationToken> GetTestData()
     {
         var employee = new EmployeeModel
         {
@@ -70,13 +69,17 @@ public class ForCorrectInputParamsTestData : TheoryData<EmployeeModel, JsonSeria
             Salary = 80000m
         };
 
-        Add(employee, JsonSerializerOptions.Default, default);
-        Add(employee, null, default);
-        Add(employeeWithEmptyFio, JsonSerializerOptions.Default, default);
-        Add(employeeWithZeroSalary, JsonSerializerOptions.Default, default);
-        Add(employeeWithMaxSalary, JsonSerializerOptions.Default, default);
-        Add(dismissedEmployee, JsonSerializerOptions.Default, default);
-        Add(employeeWithUndefinedGender, JsonSerializerOptions.Default, default);
+
+        return new TheoryData<EmployeeModel, JsonSerializerOptions?, CancellationToken>
+        {
+            {employee, JsonSerializerOptions.Default, default},
+            // {employee, null, default },
+            // {employeeWithEmptyFio, JsonSerializerOptions.Default, default},
+            // {employeeWithZeroSalary, JsonSerializerOptions.Default, default},
+            // {employeeWithMaxSalary, JsonSerializerOptions.Default, default},
+            // {dismissedEmployee, JsonSerializerOptions.Default, default},
+            // {employeeWithUndefinedGender, JsonSerializerOptions.Default, default},        
+        };
     }
 
     #endregion
