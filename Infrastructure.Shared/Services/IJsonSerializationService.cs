@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace Infrastructure.Common.Services;
+namespace Infrastructure.Shared.Services;
 
 /// <summary>
 /// Сервис для преобразования объектов в формат JSON и обратно.

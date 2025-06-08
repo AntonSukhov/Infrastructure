@@ -1,4 +1,4 @@
-namespace Infrastructure.Common.Helpers;
+namespace Infrastructure.Shared.Helpers;
 
 /// <summary>
 /// Помощник работы с постоянными значениями.

@@ -1,8 +1,8 @@
 using System.Text.Json;
 using FluentAssertions;
-using Infrastructure.Common.Services;
-using Infrastructure.Common.Tests.JsonSerializationServiceTests.Models;
-using Infrastructure.Common.Tests.TestData.JsonSerializationService.DeserializeAsync;
+using Infrastructure.Shared.Services;
+using Infrastructure.Shared.Tests.JsonSerializationServiceTests.Models;
+using Infrastructure.Shared.Tests.TestData.JsonSerializationService.DeserializeAsync;
 
 namespace Infrastructure.Common.Tests.JsonSerializationServiceTests;
 

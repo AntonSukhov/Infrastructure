@@ -3,7 +3,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <PackageId>Infrastructure.Common</PackageId>
+    <PackageId>Infrastructure.Shared</PackageId>
     <Version>1.0.0</Version>
     <Authors>Sukhov A.A.</Authors>
     <Description> Пакет предназначен для возможности использовать сервисы, помощники, модели и другие компоненты общего назначения в приложениях .NET. 

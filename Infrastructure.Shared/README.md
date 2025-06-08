@@ -35,10 +35,10 @@ Main Types
 
 The main types provided by this library are:
 
-    Infrastructure.Common.Services.IJsonSerializationService
-    Infrastructure.Common.Services.JsonSerializationService
-    Infrastructure.Common.Helpers.ConstantsHelper
-    Infrastructure.Common.Models.PageOptionsModel
+    Infrastructure.Shared.Services.IJsonSerializationService
+    Infrastructure.Shared.Services.JsonSerializationService
+    Infrastructure.Shared.Helpers.ConstantsHelper
+    Infrastructure.Shared.Models.PageOptionsModel
 
 
 Feedback & Contributing

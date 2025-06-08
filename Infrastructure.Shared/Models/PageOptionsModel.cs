@@ -1,4 +1,4 @@
-namespace Infrastructure.Common.Models;
+namespace Infrastructure.Shared.Models;
 
 /// <summary>
 /// Модель настроек страницы, используемая для пагинации данных.

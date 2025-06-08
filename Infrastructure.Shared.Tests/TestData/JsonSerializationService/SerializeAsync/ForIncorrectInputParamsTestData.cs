@@ -1,7 +1,7 @@
 using System.Text.Json;
-using Infrastructure.Common.Tests.JsonSerializationServiceTests.Models;
+using Infrastructure.Shared.Tests.JsonSerializationServiceTests.Models;
 
-namespace Infrastructure.Common.Tests.TestData.JsonSerializationService.SerializeAsync;
+namespace Infrastructure.Shared.Tests.TestData.JsonSerializationService.SerializeAsync;
 
 /// <summary>
 /// Тестовые данные проверки метода асинхронной сериализации объект в строку формата JSON

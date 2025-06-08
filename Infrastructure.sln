@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Common", "Infrastructure.Common\Infrastructure.Common.csproj", "{8FBC25A8-F8F1-4D1D-B0CC-CB74D471FB57}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Shared", "Infrastructure.Shared\Infrastructure.Shared.csproj", "{8FBC25A8-F8F1-4D1D-B0CC-CB74D471FB57}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Security", "Infrastructure.Security\Infrastructure.Security.csproj", "{7F74CB68-3219-4590-A727-74F4805255DB}"
 EndProject
@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Caching", "I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Caching.Tests", "Infrastructure.Caching.Tests\Infrastructure.Caching.Tests.csproj", "{DC7C1B57-EC2E-491D-BFCF-1760E407E5AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Common.Tests", "Infrastructure.Common.Tests\Infrastructure.Common.Tests.csproj", "{3AE4BD63-F7EA-809F-662F-AA5060AF1547}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Shared.Tests", "Infrastructure.Shared.Tests\Infrastructure.Shared.Tests.csproj", "{3AE4BD63-F7EA-809F-662F-AA5060AF1547}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

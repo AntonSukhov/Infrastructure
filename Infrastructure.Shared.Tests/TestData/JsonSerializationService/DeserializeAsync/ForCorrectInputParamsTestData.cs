@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Infrastructure.Common.Tests.TestData.JsonSerializationService.DeserializeAsync;
+namespace Infrastructure.Shared.Tests.TestData.JsonSerializationService.DeserializeAsync;
 
 /// <summary>
 /// Тестовые данные проверки метода асинхронной десериализации строки формата JSON в объект

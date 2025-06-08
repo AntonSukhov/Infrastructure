@@ -1,10 +1,10 @@
 using System.Text.Json;
 using FluentAssertions;
-using Infrastructure.Common.Services;
-using Infrastructure.Common.Tests.JsonSerializationServiceTests.Models;
-using Infrastructure.Common.Tests.TestData.JsonSerializationService.SerializeAsync;
+using Infrastructure.Shared.Services;
+using Infrastructure.Shared.Tests.JsonSerializationServiceTests.Models;
+using Infrastructure.Shared.Tests.TestData.JsonSerializationService.SerializeAsync;
 
-namespace Infrastructure.Common.Tests.JsonSerializationServiceTests;
+namespace Infrastructure.Shared.Tests.JsonSerializationServiceTests;
 
 /// <summary>
 /// Тесты для проверки метода асинхронной сериализации объект в строку формата JSON.

@@ -1,4 +1,4 @@
-namespace Infrastructure.Common.Tests.JsonSerializationServiceTests.Models;
+namespace Infrastructure.Shared.Tests.JsonSerializationServiceTests.Models;
 
 /// <summary>
 /// Модель сотрудник.
