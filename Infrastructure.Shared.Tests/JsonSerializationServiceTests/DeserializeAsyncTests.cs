@@ -4,7 +4,7 @@ using Infrastructure.Shared.Services;
 using Infrastructure.Shared.Tests.JsonSerializationServiceTests.Models;
 using Infrastructure.Shared.Tests.TestData.JsonSerializationService.DeserializeAsync;
 
-namespace Infrastructure.Common.Tests.JsonSerializationServiceTests;
+namespace Infrastructure.Shared.Tests.JsonSerializationServiceTests;
 
 /// <summary>
 /// Тесты для проверки метода асинхронной десериализации строки формата JSON в объект.
@@ -31,15 +31,15 @@ public class DeserializeAsyncTests
                 MemberType = typeof(ForCorrectInputParamsTestData))]
     public async Task ForCorrectInputParams(string employeeJson, JsonSerializerOptions? jsonSerializerOptions, CancellationToken cancellationToken)
     {
-        var expected = await _jsonSerializationService.DeserializeAsync<EmployeeModel>(employeeJson, jsonSerializerOptions, cancellationToken);
+        var actual = await _jsonSerializationService.DeserializeAsync<EmployeeModel>(employeeJson, jsonSerializerOptions, cancellationToken);
 
-        expected.Should().NotBeNull()
-                                .And
-                                .Match<EmployeeModel>(p => p.Id > 0 &&
-                                                           !string.IsNullOrWhiteSpace(p.Fio) &&
-                                                           p.Gender == Gender.Male || p.Gender == Gender.Female &&
-                                                           p.Birthdate != default &&
-                                                           p.Salary >= 0m);
+        actual.Should().NotBeNull()
+                        .And
+                        .Match<EmployeeModel>(p => p.Id > 0 &&
+                                                    !string.IsNullOrWhiteSpace(p.Fio) &&
+                                                    p.Gender == Gender.Male || p.Gender == Gender.Female &&
+                                                    p.Birthdate != default &&
+                                                    p.Salary >= 0m);
     }
 
     /// <summary>
@@ -54,10 +54,10 @@ public class DeserializeAsyncTests
                 MemberType = typeof(ForIncorrectInputParamsTestData))]
     public async Task ForIncorrectInputParams(string employeeJson, JsonSerializerOptions? jsonSerializerOptions, CancellationToken cancellationToken)
     {
-        var excepted = async () => await _jsonSerializationService.DeserializeAsync<EmployeeModel>(employeeJson,
+        var action = async () => await _jsonSerializationService.DeserializeAsync<EmployeeModel>(employeeJson,
         jsonSerializerOptions, cancellationToken);
 
-        var exception = await excepted.Should().ThrowAsync<Exception>();
+        var exception = await action.Should().ThrowAsync<Exception>();
 
         exception.Match(p => p.Any(p1 => p1 is ArgumentException || p1 is ArgumentNullException || p1 is Exception));
     }

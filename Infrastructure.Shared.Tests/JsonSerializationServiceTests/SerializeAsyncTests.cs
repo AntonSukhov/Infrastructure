@@ -31,15 +31,15 @@ public class SerializeAsyncTests
                 MemberType =typeof(ForCorrectInputParamsTestData))]
     public async Task ForCorrectInputParams(EmployeeModel employee, JsonSerializerOptions? jsonSerializerOptions, CancellationToken cancellationToken)
     {
-        var expected = await _jsonSerializationService.SerializeAsync(employee, jsonSerializerOptions, cancellationToken);
+        var actual = await _jsonSerializationService.SerializeAsync(employee, jsonSerializerOptions, cancellationToken);
 
-        expected.Should().NotBeNullOrWhiteSpace();
+        actual.Should().NotBeNullOrWhiteSpace();
 
-        var employeeExpected = await _jsonSerializationService.DeserializeAsync<EmployeeModel>(expected, jsonSerializerOptions, cancellationToken);
+        var employeeActual = await _jsonSerializationService.DeserializeAsync<EmployeeModel>(actual, jsonSerializerOptions, cancellationToken);
 
-        employeeExpected.Should().NotBeNull()
-                                .And
-                                .Match<EmployeeModel>(p => p.Id == employee.Id &&
+        employeeActual.Should().NotBeNull()
+                               .And
+                               .Match<EmployeeModel>(p => p.Id == employee.Id &&
                                                            p.Fio == employee.Fio &&
                                                            p.Gender == employee.Gender &&
                                                            p.Birthdate == employee.Birthdate &&
@@ -59,12 +59,12 @@ public class SerializeAsyncTests
                 MemberType =typeof(ForIncorrectInputParamsTestData))]
     public async Task ForIncorrectInputParams(EmployeeModel? employee, JsonSerializerOptions? jsonSerializerOptions, CancellationToken cancellationToken)
     {
-        var expected = await Assert.ThrowsAsync<ArgumentNullException>
+        var action = await Assert.ThrowsAsync<ArgumentNullException>
         (
             async () => await _jsonSerializationService.SerializeAsync(employee, jsonSerializerOptions, cancellationToken)
         );
 
-        expected.Should().NotBeNull();                                             
+        action.Should().NotBeNull();                                             
     }
     #endregion
 }

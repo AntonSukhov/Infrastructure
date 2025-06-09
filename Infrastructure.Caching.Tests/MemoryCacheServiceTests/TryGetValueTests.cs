@@ -39,10 +39,10 @@ public class TryGetValueTests : IClassFixture<MemoryCacheServiceFixture>
     [ClassData(typeof(ForExistedKeyTestData))]
     public void ForExistedKeyTest(string key)
     {
-        var expectedPr = _memoryCacheServiceFixture.StringMemoryCacheService.TryGetValue(key, out var expectedValue);
+        var actualPr = _memoryCacheServiceFixture.StringMemoryCacheService.TryGetValue(key, out var actualValue);
 
-        expectedPr.Should().BeTrue();
-        expectedValue.Should().NotBeNullOrWhiteSpace();
+        actualPr.Should().BeTrue();
+        actualValue.Should().NotBeNullOrWhiteSpace();
     }
 
     /// <summary>
@@ -53,10 +53,10 @@ public class TryGetValueTests : IClassFixture<MemoryCacheServiceFixture>
     [ClassData(typeof(ForNotExistedKeyTestData))]
     public void ForNotExistedKeyTest(string key)
     {
-        var expectedPr = _memoryCacheServiceFixture.StringMemoryCacheService.TryGetValue(key, out var expectedValue);
+        var actualPr = _memoryCacheServiceFixture.StringMemoryCacheService.TryGetValue(key, out var actualValue);
 
-        expectedPr.Should().BeFalse();
-        expectedValue.Should().BeNull();
+        actualPr.Should().BeFalse();
+        actualValue.Should().BeNull();
     }
 
     /// <summary>
@@ -67,9 +67,9 @@ public class TryGetValueTests : IClassFixture<MemoryCacheServiceFixture>
     [ClassData(typeof(ForIncorrectKeyTestData))]
     public void ForIncorrectKeyTest(string key)
     {
-        var expected = () => _memoryCacheServiceFixture.StringMemoryCacheService.TryGetValue(key, out var expectedValue);
+        var action = () => _memoryCacheServiceFixture.StringMemoryCacheService.TryGetValue(key, out var actualValue);
 
-        var exception = expected.Should().Throw<Exception>().Which;
+        var exception = action.Should().Throw<Exception>().Which;
 
         if (exception is not (ArgumentNullException or ArgumentException))
         {

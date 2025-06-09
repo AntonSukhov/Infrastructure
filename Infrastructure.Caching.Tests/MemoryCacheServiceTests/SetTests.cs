@@ -38,9 +38,9 @@ public class SetTests
     {
         _stringMemoryCacheService.Set(key, value, absoluteExpiration);
 
-        var expectedPr = _stringMemoryCacheService.TryGetValue(key, out var expectedValue);
+        var actualPr = _stringMemoryCacheService.TryGetValue(key, out var expectedValue);
 
-        var (Pr, Key, Value) = (expectedPr, key, expectedValue);
+        var (Pr, Key, Value) = (actualPr, key, expectedValue);
 
         Pr.Should().BeTrue();
         Key.Should().Be(key);
@@ -57,9 +57,9 @@ public class SetTests
     [ClassData(typeof(ForIncorrectInputParamsTestData))]
     public void ForIncorrectInputParams(string key, string value, DateTimeOffset absoluteExpiration)
     {
-        var expected = () => _stringMemoryCacheService.Set(key, value, absoluteExpiration);
+        var action = () => _stringMemoryCacheService.Set(key, value, absoluteExpiration);
 
-        var exception = expected.Should().Throw<Exception>().Which;
+        var exception = action.Should().Throw<Exception>().Which;
 
         if (exception is not (ArgumentNullException or ArgumentException))
         {
@@ -78,20 +78,20 @@ public class SetTests
     [ClassData(typeof(ForExistedKeyTestData))]
     public void ForExistedKey(string key, string value, DateTimeOffset absoluteExpiration)
     {
-        var expected = () => _stringMemoryCacheService.Set(key, value, absoluteExpiration);
+        var action = () => _stringMemoryCacheService.Set(key, value, absoluteExpiration);
 
-        expected.Should().NotThrow();
+        action.Should().NotThrow();
 
-        var newValue = "New value";
+        var expectedValue = "New value";
 
-        var duplicateExpected = () => _stringMemoryCacheService.Set(key, newValue, absoluteExpiration);
+        var actionForDuplicate = () => _stringMemoryCacheService.Set(key, expectedValue, absoluteExpiration);
 
-        duplicateExpected.Should().NotThrow();
+        actionForDuplicate.Should().NotThrow();
 
-        var expectedPr = _stringMemoryCacheService.TryGetValue(key, out var expectedNewValue);
+        var actualPr = _stringMemoryCacheService.TryGetValue(key, out var actualValue);
 
-        expectedPr.Should().BeTrue();
-        expectedNewValue.Should().Be(newValue);
+        actualPr.Should().BeTrue();
+        actualValue.Should().Be(expectedValue);
         
     }
 

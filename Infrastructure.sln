@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Caching.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Shared.Tests", "Infrastructure.Shared.Tests\Infrastructure.Shared.Tests.csproj", "{3AE4BD63-F7EA-809F-662F-AA5060AF1547}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Security.Tests", "Infrastructure.Security.Tests\Infrastructure.Security.Tests.csproj", "{2E408BE6-77F5-42A9-814A-49DD00224725}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{3AE4BD63-F7EA-809F-662F-AA5060AF1547}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AE4BD63-F7EA-809F-662F-AA5060AF1547}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AE4BD63-F7EA-809F-662F-AA5060AF1547}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E408BE6-77F5-42A9-814A-49DD00224725}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E408BE6-77F5-42A9-814A-49DD00224725}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E408BE6-77F5-42A9-814A-49DD00224725}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E408BE6-77F5-42A9-814A-49DD00224725}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

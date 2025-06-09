@@ -39,9 +39,9 @@ public class RemoveTests: IClassFixture<MemoryCacheServiceFixture>
     [ClassData(typeof(ForExistedKeyTestData))]
     public void ForExistedKeyTest(string key)
     {
-        var expected = () => _memoryCacheServiceFixture.StringMemoryCacheService.Remove(key);
+        var action = () => _memoryCacheServiceFixture.StringMemoryCacheService.Remove(key);
 
-        expected.Should().NotThrow();
+        action.Should().NotThrow();
     }
 
     /// <summary>
@@ -52,9 +52,9 @@ public class RemoveTests: IClassFixture<MemoryCacheServiceFixture>
     [ClassData(typeof(ForNotExistedKeyTestData))]
     public void ForNotExistedKeyTest(string key)
     {
-        var expected = () => _memoryCacheServiceFixture.StringMemoryCacheService.Remove(key);
+        var action = () => _memoryCacheServiceFixture.StringMemoryCacheService.Remove(key);
 
-        expected.Should().NotThrow();
+        action.Should().NotThrow();
     }
 
     /// <summary>
@@ -65,9 +65,9 @@ public class RemoveTests: IClassFixture<MemoryCacheServiceFixture>
     [ClassData(typeof(ForIncorrectKeyTestData))]
     public void ForIncorrectKeyTest(string key)
     {
-        var expected = () => _memoryCacheServiceFixture.StringMemoryCacheService.Remove(key);
+        var action = () => _memoryCacheServiceFixture.StringMemoryCacheService.Remove(key);
 
-        var exception = expected.Should().Throw<Exception>().Which;
+        var exception = action.Should().Throw<Exception>().Which;
 
         if (exception is not (ArgumentNullException or ArgumentException))
         {
