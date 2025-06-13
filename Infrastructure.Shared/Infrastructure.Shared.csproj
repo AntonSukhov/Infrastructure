@@ -4,12 +4,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>Infrastructure.Shared</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Authors>Sukhov A.A.</Authors>
-    <Description> Пакет предназначен для возможности использовать сервисы, помощники, модели и другие компоненты общего назначения в приложениях .NET. 
-        Он включает в себя инструменты для сериализации и десериализации данных, управления пагинацией, а также вспомогательные классы для выполнения рутинных задач. 
-        Этот пакет упрощает разработку, позволяя разработчикам сосредоточиться на бизнес-логике, а не на технических деталях. 
-        В будущем планируется добавление дополнительных классов и интерфейсов общего назначения для расширения функциональности.</Description>
+    <Description> The package is designed to be able to use services, helpers, models, and other general-purpose components in .NET applications. 
+        It includes tools for serializing and deserializing data, pagination management, and auxiliary classes for performing routine tasks. 
+        This package simplifies development by allowing developers to focus on business logic rather than technical details. 
+        In the future, it is planned to add additional general-purpose classes and interfaces to enhance functionality.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/AntonSukhov/Infrastructure.git</RepositoryUrl>
   </PropertyGroup>

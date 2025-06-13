@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Infrastructure.Shared.Services;
 using Infrastructure.Shared.Tests.JsonSerializationServiceTests.Models;
 
 namespace Infrastructure.Shared.Tests.TestData.JsonSerializationService.SerializeAsync;
@@ -12,7 +13,7 @@ public static class ForCorrectInputParamsTestData
 
     #region Методы
 
-    public static TheoryData<EmployeeModel, JsonSerializerOptions?, CancellationToken> GetTestData()
+    public static TheoryData<EmployeeModel, IJsonSerializationOptions<JsonSerializerOptions>?, CancellationToken> GetTestData()
     {
         var employee = new EmployeeModel
         {
@@ -70,15 +71,17 @@ public static class ForCorrectInputParamsTestData
         };
 
 
-        return new TheoryData<EmployeeModel, JsonSerializerOptions?, CancellationToken>
+        var jsonSerializationOptions = new JsonSerializationOptions(JsonSerializerOptions.Default);
+
+        return new TheoryData<EmployeeModel, IJsonSerializationOptions<JsonSerializerOptions>?, CancellationToken>
         {
-            {employee, JsonSerializerOptions.Default, default},
+            {employee, jsonSerializationOptions, default},
             {employee, null, default },
-            {employeeWithEmptyFio, JsonSerializerOptions.Default, default},
-            {employeeWithZeroSalary, JsonSerializerOptions.Default, default},
-            {employeeWithMaxSalary, JsonSerializerOptions.Default, default},
-            {dismissedEmployee, JsonSerializerOptions.Default, default},
-            {employeeWithUndefinedGender, JsonSerializerOptions.Default, default},        
+            {employeeWithEmptyFio, jsonSerializationOptions, default},
+            {employeeWithZeroSalary, jsonSerializationOptions, default},
+            {employeeWithMaxSalary, jsonSerializationOptions, default},
+            {dismissedEmployee, jsonSerializationOptions, default},
+            {employeeWithUndefinedGender, jsonSerializationOptions, default},
         };
     }
 

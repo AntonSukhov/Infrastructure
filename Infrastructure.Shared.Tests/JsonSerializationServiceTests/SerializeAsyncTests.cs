@@ -13,7 +13,7 @@ public class SerializeAsyncTests
 {
     #region Поля
 
-    private readonly IJsonSerializationService _jsonSerializationService = new JsonSerializationService();
+    private readonly IJsonSerializationService<JsonSerializerOptions> _jsonSerializationService = new JsonSerializationService();
 
     #endregion
 
@@ -28,8 +28,8 @@ public class SerializeAsyncTests
     /// <returns>Асинхронная задача, представляющая результат выполнения теста.</returns>
     [Theory]
     [MemberData(nameof(ForCorrectInputParamsTestData.GetTestData),
-                MemberType =typeof(ForCorrectInputParamsTestData))]
-    public async Task ForCorrectInputParams(EmployeeModel employee, JsonSerializerOptions? jsonSerializerOptions, CancellationToken cancellationToken)
+                MemberType = typeof(ForCorrectInputParamsTestData))]
+    public async Task ForCorrectInputParams(EmployeeModel employee, IJsonSerializationOptions<JsonSerializerOptions>? jsonSerializerOptions, CancellationToken cancellationToken)
     {
         var actual = await _jsonSerializationService.SerializeAsync(employee, jsonSerializerOptions, cancellationToken);
 
@@ -46,7 +46,7 @@ public class SerializeAsyncTests
                                                            p.Salary == employee.Salary &&
                                                            p.Dismissed == employee.Dismissed);
     }
-    
+
     /// <summary>
     /// Тест проверки метода асинхронной сериализации объект в строку формата JSON для некорректных входных параметров.
     /// </summary>
@@ -56,15 +56,15 @@ public class SerializeAsyncTests
     /// <returns>Асинхронная задача, представляющая результат выполнения теста.</returns>
     [Theory]
     [MemberData(nameof(ForIncorrectInputParamsTestData.GetTestData),
-                MemberType =typeof(ForIncorrectInputParamsTestData))]
-    public async Task ForIncorrectInputParams(EmployeeModel? employee, JsonSerializerOptions? jsonSerializerOptions, CancellationToken cancellationToken)
+                MemberType = typeof(ForIncorrectInputParamsTestData))]
+    public async Task ForIncorrectInputParams(EmployeeModel? employee, IJsonSerializationOptions<JsonSerializerOptions>? jsonSerializerOptions, CancellationToken cancellationToken)
     {
         var action = await Assert.ThrowsAsync<ArgumentNullException>
         (
             async () => await _jsonSerializationService.SerializeAsync(employee, jsonSerializerOptions, cancellationToken)
         );
 
-        action.Should().NotBeNull();                                             
+        action.Should().NotBeNull();
     }
     #endregion
 }

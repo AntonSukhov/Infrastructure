@@ -13,7 +13,7 @@ public class DeserializeAsyncTests
 {
     #region Поля
 
-    private readonly IJsonSerializationService _jsonSerializationService = new JsonSerializationService();
+    private readonly IJsonSerializationService<JsonSerializerOptions> _jsonSerializationService = new JsonSerializationService();
 
     #endregion
 
@@ -29,9 +29,11 @@ public class DeserializeAsyncTests
     [Theory]
     [MemberData(nameof(ForCorrectInputParamsTestData.GetTestData),
                 MemberType = typeof(ForCorrectInputParamsTestData))]
-    public async Task ForCorrectInputParams(string employeeJson, JsonSerializerOptions? jsonSerializerOptions, CancellationToken cancellationToken)
+    public async Task ForCorrectInputParams(string employeeJson,
+        IJsonSerializationOptions<JsonSerializerOptions>? jsonSerializerOptions, CancellationToken cancellationToken)
     {
-        var actual = await _jsonSerializationService.DeserializeAsync<EmployeeModel>(employeeJson, jsonSerializerOptions, cancellationToken);
+        var actual = await _jsonSerializationService.DeserializeAsync<EmployeeModel>(employeeJson, jsonSerializerOptions,
+            cancellationToken);
 
         actual.Should().NotBeNull()
                         .And
@@ -52,10 +54,11 @@ public class DeserializeAsyncTests
     [Theory]
     [MemberData(nameof(ForIncorrectInputParamsTestData.GetTestData),
                 MemberType = typeof(ForIncorrectInputParamsTestData))]
-    public async Task ForIncorrectInputParams(string employeeJson, JsonSerializerOptions? jsonSerializerOptions, CancellationToken cancellationToken)
+    public async Task ForIncorrectInputParams(string employeeJson,
+        IJsonSerializationOptions<JsonSerializerOptions>? jsonSerializerOptions, CancellationToken cancellationToken)
     {
         var action = async () => await _jsonSerializationService.DeserializeAsync<EmployeeModel>(employeeJson,
-        jsonSerializerOptions, cancellationToken);
+            jsonSerializerOptions, cancellationToken);
 
         var exception = await action.Should().ThrowAsync<Exception>();
 

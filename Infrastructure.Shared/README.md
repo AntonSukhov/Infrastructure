@@ -4,7 +4,8 @@ The package contains services, helpers, models, etc. general purpose for .NET of
 
 How to Use
 
-    IJsonSerializationService jsonSerializationService = new JsonSerializationService();
+    IJsonSerializationOptions<JsonSerializerOptions> jsonSerializerOptions = new JsonSerializationOptions(); //In default constructor JsonSerializerOptions.Default
+    IJsonSerializationService<JsonSerializerOptions> jsonSerializationService = new JsonSerializationService();
 
     var pageOptions = new PageOptionsModel
     {
@@ -14,8 +15,8 @@ How to Use
 
     var message = string.Empty;
 
-    var pageOptionsSerialized = await jsonSerializationService.SerializeAsync(pageOptions, JsonSerializerOptions.Default);
-    var pageOptionsDeserialized = await jsonSerializationService.DeserializeAsync<PageOptionsModel>(pageOptionsSerialized, JsonSerializerOptions.Default);
+    var pageOptionsSerialized = await jsonSerializationService.SerializeAsync(pageOptions, jsonSerializerOptions);
+    var pageOptionsDeserialized = await jsonSerializationService.DeserializeAsync<PageOptionsModel>(pageOptionsSerialized, jsonSerializerOptions);
 
 
     if (pageOptionsDeserialized.PageNumber == pageOptions.PageNumber &&

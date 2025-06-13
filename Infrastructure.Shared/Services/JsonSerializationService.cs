@@ -7,19 +7,20 @@ namespace Infrastructure.Shared.Services;
 /// <summary>
 /// Сервис для преобразования объектов в формат JSON и обратно.
 /// </summary>
-public class JsonSerializationService : IJsonSerializationService
+public class JsonSerializationService : IJsonSerializationService<JsonSerializerOptions>
 {
     #region Методы
 
     /// <inheritdoc/>
-    public virtual async Task<string> SerializeAsync<TValue>(TValue value, JsonSerializerOptions? options = null,
+    public virtual async Task<string> SerializeAsync<TValue>(TValue value,
+        IJsonSerializationOptions<JsonSerializerOptions>? options = null,
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(value, nameof(value));
 
         using var memoryStream = new MemoryStream();
 
-        await JsonSerializer.SerializeAsync(memoryStream, value, options, cancellationToken);
+        await JsonSerializer.SerializeAsync(memoryStream, value, options?.GetOptions(), cancellationToken);
 
         memoryStream.Position = 0L;
 
@@ -29,7 +30,8 @@ public class JsonSerializationService : IJsonSerializationService
     }
 
     /// <inheritdoc/>
-	public virtual async Task<TValue> DeserializeAsync<TValue>(string json, JsonSerializerOptions? options = null,
+	public virtual async Task<TValue> DeserializeAsync<TValue>(string json,
+        IJsonSerializationOptions<JsonSerializerOptions>? options = null,
         CancellationToken cancellationToken = default)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(json, nameof(json));
@@ -37,10 +39,10 @@ public class JsonSerializationService : IJsonSerializationService
         var jsonAsBytes = Encoding.UTF8.GetBytes(json);
         using var memoryStream = new MemoryStream(jsonAsBytes);
 
-        var value = await JsonSerializer.DeserializeAsync<TValue>(memoryStream, options, cancellationToken);
+        var value = await JsonSerializer.DeserializeAsync<TValue>(memoryStream, options?.GetOptions(), cancellationToken);
 
         return value ?? throw new JsonException(ConstantsHelper.JsonDeserializationErrorMessage);
     }
-    
+
     #endregion
 }

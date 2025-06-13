@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Infrastructure.Shared.Services;
 using Infrastructure.Shared.Tests.JsonSerializationServiceTests.Models;
 
 namespace Infrastructure.Shared.Tests.TestData.JsonSerializationService.SerializeAsync;
@@ -12,11 +13,13 @@ public static class ForIncorrectInputParamsTestData
 { 
     #region Методы
 
-    public static TheoryData<EmployeeModel?, JsonSerializerOptions?, CancellationToken> GetTestData()
+    public static TheoryData<EmployeeModel?, IJsonSerializationOptions<JsonSerializerOptions>?, CancellationToken> GetTestData()
     {
-        return new TheoryData<EmployeeModel?, JsonSerializerOptions?, CancellationToken>
+        var jsonSerializationOptions = new JsonSerializationOptions(JsonSerializerOptions.Default);
+
+        return new TheoryData<EmployeeModel?, IJsonSerializationOptions<JsonSerializerOptions>?, CancellationToken>
         {
-            {null, JsonSerializerOptions.Default, default},    
+            {null, jsonSerializationOptions, default},
         };
     }
 
