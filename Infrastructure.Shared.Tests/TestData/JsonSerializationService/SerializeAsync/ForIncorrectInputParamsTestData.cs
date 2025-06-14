@@ -13,13 +13,11 @@ public static class ForIncorrectInputParamsTestData
 { 
     #region Методы
 
-    public static TheoryData<EmployeeModel?, IJsonSerializationOptions<JsonSerializerOptions>?, CancellationToken> GetTestData()
+    public static TheoryData<EmployeeModel?, JsonSerializerOptions?, CancellationToken> GetTestData()
     {
-        var jsonSerializationOptions = new JsonSerializationOptions(JsonSerializerOptions.Default);
-
-        return new TheoryData<EmployeeModel?, IJsonSerializationOptions<JsonSerializerOptions>?, CancellationToken>
+        return new TheoryData<EmployeeModel?, JsonSerializerOptions?, CancellationToken>
         {
-            {null, jsonSerializationOptions, default},
+            {null, JsonSerializerOptions.Default, default},
         };
     }
 

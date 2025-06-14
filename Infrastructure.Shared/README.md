@@ -4,10 +4,7 @@ The package contains services, helpers, models, etc. general purpose for .NET of
 
 How to Use
 
-    IJsonSerializationOptions<JsonSerializerOptions> jsonSerializerOptions = new JsonSerializationOptions(); //In default constructor JsonSerializerOptions.Default
-    IJsonSerializationService<JsonSerializerOptions> jsonSerializationService = new JsonSerializationService();
-
-    var pageOptions = new PageOptionsModel
+    var pageOptions = new Shared.Models.PageOptionsModel
     {
         PageNumber = 1,
         PageSize = 10
@@ -15,8 +12,8 @@ How to Use
 
     var message = string.Empty;
 
-    var pageOptionsSerialized = await jsonSerializationService.SerializeAsync(pageOptions, jsonSerializerOptions);
-    var pageOptionsDeserialized = await jsonSerializationService.DeserializeAsync<PageOptionsModel>(pageOptionsSerialized, jsonSerializerOptions);
+    var pageOptionsSerialized = await JsonSerializationService.SerializeAsync(pageOptions);
+    var pageOptionsDeserialized = await JsonSerializationService.DeserializeAsync<Shared.Models.PageOptionsModel>(pageOptionsSerialized);
 
 
     if (pageOptionsDeserialized.PageNumber == pageOptions.PageNumber &&
@@ -36,7 +33,6 @@ Main Types
 
 The main types provided by this library are:
 
-    Infrastructure.Shared.Services.IJsonSerializationService
     Infrastructure.Shared.Services.JsonSerializationService
     Infrastructure.Shared.Helpers.ConstantsHelper
     Infrastructure.Shared.Models.PageOptionsModel

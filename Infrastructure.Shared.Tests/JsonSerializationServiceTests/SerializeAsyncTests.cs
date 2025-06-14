@@ -11,12 +11,6 @@ namespace Infrastructure.Shared.Tests.JsonSerializationServiceTests;
 /// </summary>
 public class SerializeAsyncTests
 {
-    #region Поля
-
-    private readonly IJsonSerializationService<JsonSerializerOptions> _jsonSerializationService = new JsonSerializationService();
-
-    #endregion
-
     #region Методы
 
     /// <summary>
@@ -29,13 +23,15 @@ public class SerializeAsyncTests
     [Theory]
     [MemberData(nameof(ForCorrectInputParamsTestData.GetTestData),
                 MemberType = typeof(ForCorrectInputParamsTestData))]
-    public async Task ForCorrectInputParams(EmployeeModel employee, IJsonSerializationOptions<JsonSerializerOptions>? jsonSerializerOptions, CancellationToken cancellationToken)
+    public async Task ForCorrectInputParams(EmployeeModel employee, JsonSerializerOptions? jsonSerializerOptions,
+        CancellationToken cancellationToken)
     {
-        var actual = await _jsonSerializationService.SerializeAsync(employee, jsonSerializerOptions, cancellationToken);
+        var actual = await JsonSerializationService.SerializeAsync(employee, jsonSerializerOptions, cancellationToken);
 
         actual.Should().NotBeNullOrWhiteSpace();
 
-        var employeeActual = await _jsonSerializationService.DeserializeAsync<EmployeeModel>(actual, jsonSerializerOptions, cancellationToken);
+        var employeeActual = await JsonSerializationService.DeserializeAsync<EmployeeModel>(actual, jsonSerializerOptions,
+            cancellationToken);
 
         employeeActual.Should().NotBeNull()
                                .And
@@ -57,11 +53,12 @@ public class SerializeAsyncTests
     [Theory]
     [MemberData(nameof(ForIncorrectInputParamsTestData.GetTestData),
                 MemberType = typeof(ForIncorrectInputParamsTestData))]
-    public async Task ForIncorrectInputParams(EmployeeModel? employee, IJsonSerializationOptions<JsonSerializerOptions>? jsonSerializerOptions, CancellationToken cancellationToken)
+    public async Task ForIncorrectInputParams(EmployeeModel? employee, JsonSerializerOptions? jsonSerializerOptions,
+        CancellationToken cancellationToken)
     {
         var action = await Assert.ThrowsAsync<ArgumentNullException>
         (
-            async () => await _jsonSerializationService.SerializeAsync(employee, jsonSerializerOptions, cancellationToken)
+            async () => await JsonSerializationService.SerializeAsync(employee, jsonSerializerOptions, cancellationToken)
         );
 
         action.Should().NotBeNull();

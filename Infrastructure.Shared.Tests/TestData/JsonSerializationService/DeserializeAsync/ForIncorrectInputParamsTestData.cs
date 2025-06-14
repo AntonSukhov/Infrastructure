@@ -1,6 +1,5 @@
 using System.Text.Json;
 using Infrastructure.Shared.Helpers;
-using Infrastructure.Shared.Services;
 
 namespace Infrastructure.Shared.Tests.TestData.JsonSerializationService.DeserializeAsync;
 
@@ -13,18 +12,16 @@ public static class ForIncorrectInputParamsTestData
 { 
     #region Методы
 
-    public static TheoryData<string, IJsonSerializationOptions<JsonSerializerOptions>?, CancellationToken> GetTestData()
+    public static TheoryData<string, JsonSerializerOptions?, CancellationToken> GetTestData()
     {
         var employeeWithUndefinedGender= "{\"Id\":6,\"Fio\":\"Лебедева Ольга Васильевна\",\"Gender\":null,\"Birthdate\":\"1992-04-12T00:00:00\",\"Salary\":80000.0}";
 
-        var jsonSerializationOptions = new JsonSerializationOptions(JsonSerializerOptions.Default);
-
-        return new TheoryData<string, IJsonSerializationOptions<JsonSerializerOptions>?, CancellationToken>
+        return new TheoryData<string, JsonSerializerOptions?, CancellationToken>
         {
-            { string.Empty, jsonSerializationOptions, default },
-            { ConstantsHelper.Space, jsonSerializationOptions, default },
-            { ConstantsHelper.DoubleSpace, jsonSerializationOptions, default },
-            { employeeWithUndefinedGender, jsonSerializationOptions, default },
+            { string.Empty, JsonSerializerOptions.Default, default },
+            { ConstantsHelper.Space, JsonSerializerOptions.Default, default },
+            { ConstantsHelper.DoubleSpace, JsonSerializerOptions.Default, default },
+            { employeeWithUndefinedGender, JsonSerializerOptions.Default, default },
             { employeeWithUndefinedGender, null, default }
         };
     }

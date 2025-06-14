@@ -1,6 +1,5 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Infrastructure.Shared.Services;
 
 namespace Infrastructure.Shared.Tests.TestData.JsonSerializationService.DeserializeAsync;
 
@@ -13,7 +12,7 @@ public static class ForCorrectInputParamsTestData
 
     #region Методы
 
-    public static TheoryData<string, IJsonSerializationOptions<JsonSerializerOptions>, CancellationToken> GetTestData()
+    public static TheoryData<string, JsonSerializerOptions, CancellationToken> GetTestData()
     {
         var employee = "{\"Id\":1,\"Fio\":\"Иванов Иван Иванович\",\"Gender\":\"Male\",\"Birthdate\":\"1974-10-24T00:00:00\",\"Salary\":150000.0}";
         var employeeWithNumericGender = "{\"Id\":1,\"Fio\":\"Иванов Иван Иванович\",\"Gender\":\"1\",\"Birthdate\":\"1974-10-24T00:00:00\",\"Salary\":150000.0}";
@@ -27,18 +26,16 @@ public static class ForCorrectInputParamsTestData
             Converters = { new JsonStringEnumConverter() },
         };
 
-        var jsonSerializationOptions = new JsonSerializationOptions(jsonSerializerOptions);
-
-
-        return new TheoryData<string, IJsonSerializationOptions<JsonSerializerOptions>, CancellationToken>
+  
+        return new TheoryData<string, JsonSerializerOptions, CancellationToken>
         {
-            { employee, jsonSerializationOptions, default },
-            { employeeWithNumericGender, jsonSerializationOptions, default },
-            { employeeWithNumericGender, jsonSerializationOptions, default },
-            { employeeWithEmptyFio, jsonSerializationOptions, default },
-            { employeeWithZeroSalary, jsonSerializationOptions, default },
-            { employeeWithMaxSalary, jsonSerializationOptions, default },
-            { dismissedEmployee, jsonSerializationOptions, default }
+            { employee, jsonSerializerOptions, default },
+            { employeeWithNumericGender, jsonSerializerOptions, default },
+            { employeeWithNumericGender, jsonSerializerOptions, default },
+            { employeeWithEmptyFio, jsonSerializerOptions, default },
+            { employeeWithZeroSalary, jsonSerializerOptions, default },
+            { employeeWithMaxSalary, jsonSerializerOptions, default },
+            { dismissedEmployee, jsonSerializerOptions, default }
         };
     }
 
