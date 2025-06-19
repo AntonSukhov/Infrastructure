@@ -32,7 +32,7 @@ namespace Infrastructure.Network.Tests.HttpClientExtensionTests
 
             var exception = await func.Should().ThrowAsync<Exception>();
 
-            exception.Match(p => p.Any(p1 => p1 is ArgumentException || p1 is ArgumentNullException || p1 is ArgumentOutOfRangeException || p1 is Exception));
+            exception.Match(p => p.Any(p1 => p1 is ArgumentException || p1 is ArgumentNullException || p1 is ArgumentOutOfRangeException));
         }
 
         /// <summary>
