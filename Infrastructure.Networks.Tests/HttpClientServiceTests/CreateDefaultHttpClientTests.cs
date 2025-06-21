@@ -1,7 +1,7 @@
 using FluentAssertions;
-using Infrastructure.Network.Services;
+using Infrastructure.Networks.Services;
 
-namespace Infrastructure.Network.Tests.HttpClientServiceTests;
+namespace Infrastructure.Networks.Tests.HttpClientServiceTests;
 
 /// <summary>
 /// Тесты для проверки метода генерации создания Http-клиента с настройками по умолчанию.

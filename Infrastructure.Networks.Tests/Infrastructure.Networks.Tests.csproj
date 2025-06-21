@@ -22,6 +22,6 @@
     <Using Include="Xunit" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Infrastructure.Network\Infrastructure.Network.csproj" />
+    <ProjectReference Include="..\Infrastructure.Networks\Infrastructure.Networks.csproj" />
   </ItemGroup>
 </Project>

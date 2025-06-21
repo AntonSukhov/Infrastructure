@@ -1,6 +1,6 @@
-using Infrastructure.Network.Enums;
+using Infrastructure.Networks.Enums;
 
-namespace Infrastructure.Network.Extensions;
+namespace Infrastructure.Networks.Extensions;
 
 /// <summary>
 /// Расширение перечисления <see cref="MediaType"/>.

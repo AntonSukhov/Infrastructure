@@ -1,9 +1,9 @@
 using System.Text;
 using System.Text.Json;
-using Infrastructure.Network.Enums;
+using Infrastructure.Networks.Enums;
 using Infrastructure.Shared.Services;
 
-namespace Infrastructure.Network.Extensions;
+namespace Infrastructure.Networks.Extensions;
 
 /// <summary>
 /// Расширение класса <see cref="HttpClient"/>. 

@@ -1,14 +1,14 @@
-﻿using Infrastructure.Network.Enums;
-using Infrastructure.Network.Services;
-using Infrastructure.Network.Tests.HttpClientExtensionTests.Models;
+﻿using Infrastructure.Networks.Enums;
+using Infrastructure.Networks.Services;
+using Infrastructure.Networks.Tests.HttpClientExtensionTests.Models;
 using System.Text.Json;
 
-namespace Infrastructure.Network.Tests.TestData.HttpClientExtension.PostAsync
+namespace Infrastructure.Networks.Tests.TestData.HttpClientExtension.PostAsync
 {
     /// <summary>
     /// Тестовые данные проверки метод асинхронной отправки данных на сервер, заключенные в тело сообщения для некорректных входных параметров.
     /// </summary>
-    public class ForIncorrectInputParamsTestData
+    public static class ForIncorrectInputParamsTestData
     {
         #region Методы
 

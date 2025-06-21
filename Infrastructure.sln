@@ -15,9 +15,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Shared.Tests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Security.Tests", "Infrastructure.Security.Tests\Infrastructure.Security.Tests.csproj", "{2E408BE6-77F5-42A9-814A-49DD00224725}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Network", "Infrastructure.Network\Infrastructure.Network.csproj", "{72DF7A37-D568-4327-9B86-D3F47C41562C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Networks", "Infrastructure.Networks\Infrastructure.Networks.csproj", "{72DF7A37-D568-4327-9B86-D3F47C41562C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Network.Tests", "Infrastructure.Network.Tests\Infrastructure.Network.Tests.csproj", "{F2E17245-A1C2-4120-BFF2-F0E000A3C4AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Networks.Tests", "Infrastructure.Networks.Tests\Infrastructure.Networks.Tests.csproj", "{F2E17245-A1C2-4120-BFF2-F0E000A3C4AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

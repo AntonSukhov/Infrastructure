@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Infrastructure.Network.Tests.HttpClientExtensionTests.Models
+namespace Infrastructure.Networks.Tests.HttpClientExtensionTests.Models
 {
     public class PostDataModel
     {

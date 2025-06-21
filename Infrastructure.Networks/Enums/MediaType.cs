@@ -1,4 +1,4 @@
-namespace Infrastructure.Network.Enums;
+namespace Infrastructure.Networks.Enums;
 
 /// <summary>
 /// Тип медиа, который следует использовать для запроса содержимого.

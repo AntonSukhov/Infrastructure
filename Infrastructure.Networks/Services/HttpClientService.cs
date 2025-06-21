@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infrastructure.Network.Services;
+namespace Infrastructure.Networks.Services;
 
 /// <summary>
 /// Сервис для создания и настройки Http-клиента.

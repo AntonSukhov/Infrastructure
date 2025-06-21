@@ -1,11 +1,11 @@
 ﻿using FluentAssertions;
-using Infrastructure.Network.Enums;
-using Infrastructure.Network.Extensions;
-using Infrastructure.Network.Tests.HttpClientExtensionTests.Models;
-using Infrastructure.Network.Tests.TestData.HttpClientExtension.PostAsync;
+using Infrastructure.Networks.Enums;
+using Infrastructure.Networks.Extensions;
+using Infrastructure.Networks.Tests.HttpClientExtensionTests.Models;
+using Infrastructure.Networks.Tests.TestData.HttpClientExtension.PostAsync;
 using System.Text.Json;
 
-namespace Infrastructure.Network.Tests.HttpClientExtensionTests
+namespace Infrastructure.Networks.Tests.HttpClientExtensionTests
 {
     /// <summary>
     /// Тесты для проверки метода асинхронной отправки данных на сервер, заключенные в тело сообщения.

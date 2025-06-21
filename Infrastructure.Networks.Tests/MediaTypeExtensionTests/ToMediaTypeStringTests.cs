@@ -1,9 +1,9 @@
 using FluentAssertions;
-using Infrastructure.Network.Enums;
-using Infrastructure.Network.Extensions;
-using Infrastructure.Network.Tests.TestData.MediaTypeExtension.ToMediaTypeString;
+using Infrastructure.Networks.Enums;
+using Infrastructure.Networks.Extensions;
+using Infrastructure.Networks.Tests.TestData.MediaTypeExtension.ToMediaTypeString;
 
-namespace Infrastructure.Network.Tests.MediaTypeExtensionTests;
+namespace Infrastructure.Networks.Tests.MediaTypeExtensionTests;
 
 /// <summary>
 /// Тесты для проверки метода преобразования значение типа медиа в его строковое представление.

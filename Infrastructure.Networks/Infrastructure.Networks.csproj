@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>Infrastructure.Networks</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Sukhov A.A.</Authors>
+    <Description> The package is designed to use services, assistants, models, and other components related to network technologies. 
+        It includes tools for creating an Http-client, asynchronous execution POST-method, and auxiliary classes for performing routine tasks. 
+        This package simplifies development by allowing developers to focus on business logic rather than technical details. 
+        In the future, it is planned to add additional general-purpose classes and interfaces to enhance functionality.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/AntonSukhov/Infrastructure.git</RepositoryUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Infrastructure.Shared" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.6" />
+  </ItemGroup>
+</Project>

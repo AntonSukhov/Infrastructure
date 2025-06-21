@@ -1,6 +1,6 @@
-using Infrastructure.Network.Enums;
+using Infrastructure.Networks.Enums;
 
-namespace Infrastructure.Network.Tests.TestData.MediaTypeExtension.ToMediaTypeString;
+namespace Infrastructure.Networks.Tests.TestData.MediaTypeExtension.ToMediaTypeString;
 
 /// <summary>
 /// Тестовые данные проверки метода преобразования значения типа медиа в его строковое представление
