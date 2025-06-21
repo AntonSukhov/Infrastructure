@@ -43,12 +43,12 @@ Main Types
 
 The main types provided by this library are:
 
-    Infrastructure.Network.Services.HttpClientService
-    Infrastructure.Network.Enums.MediaType
-    Infrastructure.Network.Extensions.HttpClientExtension
-    Infrastructure.Network.Extensions.MediaTypeExtension
+    Infrastructure.Networks.Services.HttpClientService
+    Infrastructure.Networks.Enums.MediaType
+    Infrastructure.Networks.Extensions.HttpClientExtension
+    Infrastructure.Networks.Extensions.MediaTypeExtension
 
 
 Feedback & Contributing
 
-Infrastructure.Network is released as open source under the MIT license. Bug reports and contributions are welcome at the GitHub repository.
+Infrastructure.Networks is released as open source under the MIT license. Bug reports and contributions are welcome at the GitHub repository.
