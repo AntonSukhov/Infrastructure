@@ -4,14 +4,17 @@ The package is designed to provide robust cryptographic services for .NET applic
 
 How to Use
 
-    var keySize = 64;
+    var text = "Hello World!!!";
     var message = string.Empty;
+    var secureKey32BitSize = 32;
+    var secureKey64BitSize = 64;
 
-    var secureKey = CryptographyService.GenerateSecureKey(keySize);
-    var secureKeyLength = Convert.ToBase64String(new byte[keySize]).Length;
+    var secureKey32Bit = CryptographyService.GenerateSecureKey(secureKey32BitSize);
+    var secureKey64Bit = CryptographyService.GenerateSecureKey(secureKey64BitSize);
+    var secureKey64BitLength = Convert.ToBase64String(new byte[secureKey64BitSize]).Length;
 
-    if (!string.IsNullOrWhiteSpace(secureKey) &&
-        secureKey.Length == secureKeyLength)
+    if (!string.IsNullOrWhiteSpace(secureKey64Bit) &&
+        secureKey64Bit.Length == secureKey64BitLength)
     {
         message = "The generate secure key was successful!";
     }
@@ -20,6 +23,21 @@ How to Use
         message = "The generate secure key was unsuccessful!";
     }
 
+    Console.WriteLine(message);
+
+    var encryptText = CryptographyService.Encrypt(text, secureKey32Bit);
+    var decryptText = CryptographyService.Decrypt(encryptText, secureKey32Bit);
+
+    if (!string.IsNullOrWhiteSpace(encryptText) &&
+        text == decryptText)
+    {
+        message = "The encrypt and decrypt was successful!";
+    }
+    else
+    {
+        message = "The encrypt and decrypt was unsuccessful!";
+    }
+    
     Console.WriteLine(message);
     
  

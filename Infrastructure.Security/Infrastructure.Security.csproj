@@ -4,7 +4,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>Infrastructure.Security</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Authors>Sukhov A.A.</Authors>
     <Description> The package is designed to provide essential cryptographic services, enabling developers to implement secure data handling in .NET applications.
     It includes tools for generating secure keys, encrypting and decrypting data, and managing cryptographic algorithms. 
