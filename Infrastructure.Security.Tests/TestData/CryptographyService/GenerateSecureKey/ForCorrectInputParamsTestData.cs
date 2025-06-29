@@ -1,6 +1,4 @@
-using Xunit;
-
-namespace Infrastructure.Security.Tests.TestData.CryptographyService;
+namespace Infrastructure.Security.Tests.TestData.CryptographyService.GenerateSecureKey;
 
 /// <summary>
 /// Тестовые данные проверки метода генерации секретного ключа для корректных входных параметров.

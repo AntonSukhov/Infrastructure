@@ -1,7 +1,6 @@
 using FluentAssertions;
 using Infrastructure.Security.Services;
-using Infrastructure.Security.Tests.TestData.CryptographyService;
-using Xunit;
+using Infrastructure.Security.Tests.TestData.CryptographyService.GenerateSecureKey;
 
 namespace Infrastructure.Security.Tests.CryptographyServiceTests;
 
