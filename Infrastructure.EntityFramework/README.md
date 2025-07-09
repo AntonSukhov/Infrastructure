@@ -30,6 +30,7 @@ Main Types
 The main types provided by this library are:
 
     Infrastructure.EntityFramework.DbContexts.DbContextBase
+    Infrastructure.EntityFramework.Extensions.QueryableExtensions
 
 
 Feedback & Contributing
