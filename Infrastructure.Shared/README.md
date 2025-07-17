@@ -27,6 +27,8 @@ How to Use
     }
 
     Console.WriteLine(message);
+
+    var secret = ConfigurationHelper.GetSecret("SK:ServiceApiKey", "705078df-8a7d-41c8-b13a-d9f26020eff8");
     
  
 Main Types
@@ -35,9 +37,10 @@ The main types provided by this library are:
 
     Infrastructure.Shared.Services.JsonSerializationService
     Infrastructure.Shared.Helpers.ConstantsHelper
+    Infrastructure.Shared.Helpers.ConfigurationHelper
     Infrastructure.Shared.Models.PageOptionsModel
 
 
 Feedback & Contributing
 
-Infrastructure.Caching is released as open source under the MIT license. Bug reports and contributions are welcome at the GitHub repository.
+Infrastructure.Shared is released as open source under the MIT license. Bug reports and contributions are welcome at the GitHub repository.
