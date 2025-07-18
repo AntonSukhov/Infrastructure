@@ -4,8 +4,6 @@ The package is designed for caching data in .NET applications.
 
 How to Use
 
-Main Types
-
     ICacheService<string, string> сacheService = new MemoryCacheService<string, string>(new MemoryCache(new MemoryCacheOptions()));
     var absoluteExpiration = new DateTimeOffset(DateTime.UtcNow.AddMinutes(10));
     var key = "key1";
@@ -27,7 +25,8 @@ Main Types
 
     сacheService.Remove(key);                               //Deleting a value from the cache by key.
 
-  
+
+Main Types  
 
 The main types provided by this library are:
 
