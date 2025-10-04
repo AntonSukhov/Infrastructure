@@ -4,13 +4,13 @@ The package contains services, helpers, models, etc. used for testing .NET of ap
 
 How to Use
 
-var testCaseData = new TestCaseData<int, Customer>
-{
-    SerialNumber = 1,
-    InputData = 5,
-    OutputData = new Customer { Id = 5, Name = "Customer 5" },
-    Description = "Getting the customer by his ID, which is in the database."
-};
+    var testCaseData = new TestCaseData<int, Customer>
+    {
+        SerialNumber = 1,
+        InputData = 5,
+        OutputData = new Customer { Id = 5, Name = "Customer 5" },
+        Description = "Getting the customer by his ID, which is in the database."
+    };
 
 
 Main Types  
