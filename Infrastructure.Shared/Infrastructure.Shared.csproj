@@ -4,7 +4,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>Infrastructure.Shared</PackageId>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Authors>Sukhov A.A.</Authors>
     <Description> The package is designed to be able to use services, helpers, models, and other general-purpose components in .NET applications. 
         It includes tools for serializing and deserializing data, pagination management, and auxiliary classes for performing routine tasks. 
@@ -14,7 +14,7 @@
     <RepositoryUrl>https://github.com/AntonSukhov/Infrastructure.git</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.7" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.7" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.9" />
   </ItemGroup>
 </Project>
