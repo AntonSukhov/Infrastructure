@@ -3,5 +3,13 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageId>Infrastructure.Testing</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Sukhov A.A.</Authors>
+    <Description> The package is designed to be able to use classes, services, helpers, models, and other general-purpose components in testing  .NET applications. 
+        This package simplifies development by allowing developers to focus on testing program rather than technical details. 
+        In the future, it is planned to add additional general-purpose classes and interfaces to enhance functionality.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/AntonSukhov/Infrastructure.git</RepositoryUrl>
   </PropertyGroup>
 </Project>
