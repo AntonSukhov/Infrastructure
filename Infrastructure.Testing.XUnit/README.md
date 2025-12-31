@@ -36,31 +36,32 @@ that are not natively supported by xUnit.
 
 Examples:
 
-a) Ensure an action does not throw any exception
+Ensure an action does not throw any exception
 
     AssertHelper.DoesNotThrow(() => 
     {
         var service = new CustomerService();
         service.Initialize();
-    }, "Initialization should not throw exceptions");
+    }, 
+    "Initialization should not throw exceptions");
 
-b) Ensure an action does not throw a specific type of exception
+Ensure an action does not throw a specific type of exception
 
     AssertHelper.DoesNotThrow<ArgumentNullException>(() =>
     {
         var service = new CustomerService();
         service.ProcessCustomer(new Customer { Id = 1 });
-    }, "Processing valid customer should not throw ArgumentNullException");
+    }, 
+    "Processing valid customer should not throw ArgumentNullException");
 
-c) Ensure an action throws one of two expected exception types
+Ensure an action throws one of two expected exception types
 
     AssertHelper.ThrowsOneOf<ArgumentException, InvalidOperationException>(() =>
     {
         var service = new CustomerService();
         service.ValidateInput(null);
-    }, "Invalid input should throw either ArgumentException or InvalidOperationException");
-
-
+    }, 
+    "Invalid input should throw either ArgumentException or InvalidOperationException");
 
 
 Main Types  
