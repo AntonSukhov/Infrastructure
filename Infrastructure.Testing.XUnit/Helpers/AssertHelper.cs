@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Testing.XUnit.Helpers
+﻿using System;
+
+namespace Infrastructure.Testing.XUnit.Helpers
 {
     /// <summary>
     /// Помощник для упрощения проверок в тестах.

@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Testing.XUnit;
+﻿using System;
+
+namespace Infrastructure.Testing.XUnit;
 
 /// <summary>
 /// Базовый тест.
