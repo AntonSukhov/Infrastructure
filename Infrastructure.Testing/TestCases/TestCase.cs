@@ -1,5 +1,3 @@
-using Infrastructure.Testing.Common;
-
 namespace Infrastructure.Testing.TestCases;
 
 /// <summary>
@@ -12,7 +10,7 @@ public class TestCase<TIn, TOut> : TestCaseInput<TIn>
     #region Свойства
 
     /// <summary>
-    /// Получает или задает ожидаемые выходные данные теста.
+    /// Получает или задает ожидаемые выходные данные сценария.
     /// </summary>
     public required TOut OutputData { get; set; }
 

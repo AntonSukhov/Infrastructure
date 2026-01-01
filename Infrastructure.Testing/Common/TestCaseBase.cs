@@ -1,10 +1,9 @@
 namespace Infrastructure.Testing.Common;
 
 /// <summary>
-/// Входные данные тестового сценария.
+/// Базовый тестовый сценарий.
 /// </summary>
-/// <typeparam name="TIn">Тип входных данных.</typeparam>
-public class TestCaseInput<TIn>
+public class TestCaseBase
 {
     #region Свойства
 
@@ -14,15 +13,9 @@ public class TestCaseInput<TIn>
     public required int ScenarioNumber { get; set; }
 
     /// <summary>
-    /// Получает или задает входные данные для теста.
-    /// </summary>
-    public required TIn InputData { get; set; }
-
-    /// <summary>
     /// Получает или задает описание тестового сценария.
     /// </summary>
     public required string Description { get; set; }
 
     #endregion
 }
-

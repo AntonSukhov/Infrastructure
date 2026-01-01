@@ -1,11 +1,12 @@
+using Infrastructure.Testing.Common;
+
 namespace Infrastructure.Testing.TestCases;
 
 /// <summary>
-/// Тестовый сценарий с входными и выходными данными, и данными для заглушек. 
+/// Тестовый сценарий с выходными данными.
 /// </summary>
-/// <typeparam name="TIn">Тип входных данных.</typeparam>
 /// <typeparam name="TOut">Тип выходных данных.</typeparam>
-public class TestCaseWithStubs<TIn, TOut> : TestCaseInputWithStubs<TIn>
+public class TestCaseResult<TOut>: TestCaseBase
 {
     #region Свойства
 
@@ -15,5 +16,4 @@ public class TestCaseWithStubs<TIn, TOut> : TestCaseInputWithStubs<TIn>
     public required TOut OutputData { get; set; }
 
     #endregion
-
 }

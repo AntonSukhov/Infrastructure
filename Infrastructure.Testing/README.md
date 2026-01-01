@@ -22,6 +22,39 @@ Simple scenario (no stubs):
         Description = "Verify basic int-to-string conversion"
     };
 
+Scenario without input (only output and no stubs):
+
+    var testCase = new TestCaseResult<IEnumerable<DepartmentModel>>
+    {
+        ScenarioNumber = 2,
+        OutputData = new List<DepartmentModel>
+        {
+            new DepartmentModel { Id = 1, Name = "HR" },
+            new DepartmentModel { Id = 2, Name = "IT" }
+        },
+        Description = "GetAll returns all departments"
+    };
+
+Scenario without input (only output and with stubs):
+
+    var testCase = new TestCaseResultWithStubs<IEnumerable<DepartmentModel>>
+    {
+        ScenarioNumber = 3,
+        OutputData = new List<DepartmentModel> { /* ... */ },
+        Description = "GetAll with mocked repository",
+        StubOutputs = new Dictionary<(string, int), StubOutput>
+        {
+            {
+                (RepositoryMethodNames.DepartmentRepository.GetAll, 1),
+                new StubOutput
+                {
+                    OutputData = new List<DepartmentEntity> { /* ... */ }
+                }
+            }
+        }
+    };
+
+
 Scenario with stubs:
 
     var testCase = new TestCaseWithStubs<int, DepartmentModel>
@@ -51,8 +84,36 @@ The StubOutput class enables:
 
 Usage example:
 
-    var stub = new StubOutput { OutputData = new Customer { Id = 1 } };
-    var customer = stub.GetOutputData<Customer>(); // Safe type casting
+    var testCase = new TestCaseWithStubs<int, DepartmentModel>
+    {
+        ScenarioNumber = 1,
+        InputData = 15,
+        OutputData = new DepartmentModel 
+        {
+            Id = 15,
+            Name = "Department 15"
+        },
+        Description = "Retrieving department data that is present in the database.",
+        StubOutputs = new Dictionary<(string, int), StubOutput>
+        {
+            {
+                (RepositoryMethodNames.DepartmentRepository.GetDepartmentById, 1),
+                new StubOutput
+                {
+                    OutputData = new DepartmentEntity
+                    {
+                        Id = 15,
+                        Name = "Department 15"
+                    }
+                }
+            }
+        }
+    }
+
+    var stubOutput = testCase.StubOutputs[
+            (MethodName: RepositoryMethodNames.DepartmentRepository.GetDepartmentById,
+             SequenceNumber: 1)];
+    var outputData = stubOutput.GetOutputData<DepartmentEntity>();  // Safe type casting
     
 Note: GetOutputData<T> throws InvalidCastException if OutputData type doesn’t match T.
 
@@ -74,12 +135,18 @@ Example:
             TestCaseWithStubs<int, DepartmentModel> testCase)
         {
             // Arrange
-            _fixture.SetupRepositoryStub(testCase.StubOutputs);
+            var stubOutput = testCase.StubOutputs[
+                (MethodName: RepositoryMethodNames.DepartmentRepository.GetDepartmentById,
+                SequenceNumber: 1)];
 
-            // Act
-            var result = _fixture.Service.GetDepartment(testCase.InputData);
+            _fixture.DepartmentRepositoryMock
+                .Setup(s => s.GetDepartmentById(It.IsAny<int>()))
+                .Returns(() => stubOutput.GetOutputData<DepartmentEntity>());
 
-            // Assert
+            // Act:
+            var result = _fixture.DepartmentService.GetDepartmentById(testCase.InputData);
+
+            // Assert:
             Assert.Equal(testCase.OutputData, result, _fixture.DepartmentModelComparer);
         }
     }
@@ -91,13 +158,25 @@ Main Types
 The main types provided by this library are:
 
     Infrastructure.Testing.Common.StubOutput
-    Infrastructure.Testing.Common.TestCaseInput<TIn>
+        *(Encapsulates stub output data with safe type casting)*
+    Infrastructure.Testing.Common.TestCaseBase
+        *(Base class for all test scenarios; contains ScenarioNumber and Description)*
+    Infrastructure.Testing.TestCases.TestCaseInput<TIn>
+        *(Scenario with input data only)*
     Infrastructure.Testing.TestCases.TestCase<TIn, TOut>
+        *(Scenario with both input and output data)*
     Infrastructure.Testing.TestCases.TestCaseInputWithStubs<TIn>
+        *(Scenario with input data and stubs)*
     Infrastructure.Testing.TestCases.TestCaseWithStubs<TIn, TOut>
+        *(Scenario with input, output, and stubs)*
+    Infrastructure.Testing.TestCases.TestCaseResult<TOut>
+        *(Scenario for parameterless methods; contains only output data)*
+    Infrastructure.Testing.TestCases.TestCaseResultWithStubs<TOut>
+        *(Scenario for parameterless methods with stubs)*
+
 
 
 Feedback & Contributing
 
-Infrastructure.Testingis released as open source under the MIT license. 
+Infrastructure.Testing is released as open source under the MIT license. 
 Bug reports and contributions are welcome at the GitHub repository.
