@@ -2,10 +2,9 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <OutputType>Library</OutputType>
     <Nullable>enable</Nullable>
     <PackageId>Infrastructure.Testing</PackageId>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Authors>Sukhov A.A.</Authors>
     <Description> The package is designed to be able to use classes, services, helpers, models, and other general-purpose components in testing  .NET applications. 
         This package simplifies development by allowing developers to focus on testing program rather than technical details. 
@@ -16,12 +15,7 @@
     <PackageProjectUrl>https://github.com/AntonSukhov/Infrastructure</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <Copyright>© 2026 Sukhov A.A. All rights reserved.</Copyright>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <IsPackable>true</IsPackable>
-    <!-- Явно отключаем генерацию runtimeconfig.json -->
-    <GenerateRuntimeConfigDevFile>false</GenerateRuntimeConfigDevFile>
-    <GenerateRuntimeConfigurationFiles>false</GenerateRuntimeConfigurationFiles>
-  </PropertyGroup>
+</PropertyGroup>
   <ItemGroup>
     <Folder Include="Common/" />
   </ItemGroup>
