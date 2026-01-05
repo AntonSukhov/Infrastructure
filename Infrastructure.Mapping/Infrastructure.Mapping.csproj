@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>Infrastructure.Mapping</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Sukhov A.A.</Authors>
+    <Description>The package providing core components for object mapping in applications. 
+      Simplifies mapping implementation by offering reusable abstractions and helpers.
+      Enables developers to focus on business logic rather than low‑level mapping details.
+      Future updates will expand functionality with additional utilities and mapping patterns.</Description>
+    <PackageTags>mapping;dotnet</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/AntonSukhov/Infrastructure.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/AntonSukhov/Infrastructure</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <Copyright>© 2026 Sukhov A.A. All rights reserved.</Copyright>
+  </PropertyGroup>
+</Project>
