@@ -8,12 +8,9 @@ namespace Infrastructure.Testing.TestCases;
 /// <typeparam name="TOut">Тип выходных данных.</typeparam>
 public class TestCaseResult<TOut>: TestCaseBase
 {
-    #region Свойства
-
     /// <summary>
     /// Получает или задает ожидаемые выходные данные сценария.
     /// </summary>
     public required TOut OutputData { get; set; }
-
-    #endregion
+    
 }

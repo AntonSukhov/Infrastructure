@@ -3,7 +3,6 @@ using Infrastructure.Testing.TestCases;
 using Infrastructure.Testing.Tests.Entities;
 using Infrastructure.Testing.Tests.Helpers;
 using Infrastructure.Testing.Tests.Models;
-using Infrastructure.Testing.Tests.Repositories;
 using Infrastructure.Testing.XUnit;
 using Moq;
 
@@ -97,7 +96,8 @@ public class GetDepartmentByIdTests : BaseTest<DepartmentServiceFixture>
                         {
                             Id = 15,
                             Name = "Department 15"
-                        }
+                        },
+                        ExpectedType = typeof(DepartmentEntity)
                     }
                 }
             }

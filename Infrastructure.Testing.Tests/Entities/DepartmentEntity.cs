@@ -5,8 +5,6 @@ namespace Infrastructure.Testing.Tests.Entities;
 /// </summary>
 public class DepartmentEntity
 {
-    #region Свойства
-
     /// <summary>
     /// Получает или задает ИД отдела.
     /// </summary>
@@ -17,5 +15,4 @@ public class DepartmentEntity
     /// </summary>
     public required string Name { get; set; }
 
-    #endregion
 }

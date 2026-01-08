@@ -5,8 +5,6 @@ namespace Infrastructure.Testing.Tests.Models;
 /// </summary>
 public class DepartmentModel
 {
-    #region Свойства
-
     /// <summary>
     /// Получает или задает ИД отдела.
     /// </summary>
@@ -17,5 +15,4 @@ public class DepartmentModel
     /// </summary>
     public required string Name { get; set; }
 
-    #endregion
 }

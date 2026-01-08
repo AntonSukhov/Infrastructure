@@ -5,8 +5,6 @@ namespace Infrastructure.Testing.Common;
 /// </summary>
 public class TestCaseBase
 {
-    #region Свойства
-
     /// <summary>
     /// Получает или задает порядковый номер тестового сценария.
     /// </summary>
@@ -17,5 +15,4 @@ public class TestCaseBase
     /// </summary>
     public required string Description { get; set; }
 
-    #endregion
 }

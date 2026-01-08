@@ -8,13 +8,10 @@ namespace Infrastructure.Testing.TestCases;
 /// <typeparam name="TIn">Тип входных данных.</typeparam>
 public class TestCaseInput<TIn>: TestCaseBase
 {
-    #region Свойства
-
     /// <summary>
     /// Получает или задает входные данные сценария.
     /// </summary>
     public required TIn InputData { get; set; }
 
-    #endregion
 }
 

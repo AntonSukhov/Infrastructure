@@ -8,8 +8,6 @@ namespace Infrastructure.Testing.TestCases;
 /// <typeparam name="TIn">Тип входных данных.</typeparam>
 public class TestCaseInputWithStubs<TIn>: TestCaseInput<TIn>
 {
-    #region Свойства
-
     /// <summary>
     /// Получает или задает словарь выходных данных для заглушек.
     /// </summary>
@@ -19,5 +17,4 @@ public class TestCaseInputWithStubs<TIn>: TestCaseInput<TIn>
     /// </remarks>
     public required IDictionary<(string MethodName, int SequenceNumber), StubOutput> StubOutputs { get; set; } 
 
-    #endregion
 }

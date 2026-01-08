@@ -9,7 +9,6 @@ namespace Infrastructure.Testing.TestCases;
 /// <typeparam name="TOut">Тип выходных данных.</typeparam>
 public class TestCaseResultWithStubs<TOut>: TestCaseResult<TOut>
 {
-    #region Свойства
 
     /// <summary>
     /// Получает или задает словарь выходных данных для заглушек.
@@ -20,5 +19,4 @@ public class TestCaseResultWithStubs<TOut>: TestCaseResult<TOut>
     /// </remarks>
     public required IDictionary<(string MethodName, int SequenceNumber), StubOutput> StubOutputs { get; set; } 
 
-    #endregion
 }

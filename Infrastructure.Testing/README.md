@@ -48,7 +48,8 @@ Scenario without input (only output and with stubs):
                 (RepositoryMethodNames.DepartmentRepository.GetAll, 1),
                 new StubOutput
                 {
-                    OutputData = new List<DepartmentEntity> { /* ... */ }
+                    OutputData = new List<DepartmentEntity> { /* ... */ },
+                    ExpectedType = typeof(List<DepartmentEntity>)
                 }
             }
         }
@@ -69,7 +70,8 @@ Scenario with stubs:
                 (RepositoryMethodNames.DepartmentRepository.GetDepartmentById, 1),
                 new StubOutput 
                 {
-                    OutputData = new DepartmentEntity { Id = 15, Name = "Dept 15" }
+                    OutputData = new DepartmentEntity { Id = 15, Name = "Dept 15" },
+                    ExpectedType = typeof(DepartmentEntity)
                 }
             }
         }
@@ -104,7 +106,8 @@ Usage example:
                     {
                         Id = 15,
                         Name = "Department 15"
-                    }
+                    },
+                    ExpectedType = typeof(DepartmentEntity)
                 }
             }
         }
