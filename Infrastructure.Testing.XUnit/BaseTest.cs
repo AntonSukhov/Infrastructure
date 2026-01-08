@@ -8,16 +8,10 @@ namespace Infrastructure.Testing.XUnit;
 /// <typeparam name="TFixture">Тип данных фикстуры.</typeparam>
 public class BaseTest<TFixture> : IClassFixture<TFixture> where TFixture : class
 {
-    #region Поля
-
     /// <summary>
     /// Экземпляр фикстуры.
     /// </summary>
     protected readonly TFixture _fixture;
-
-    #endregion
-
-    #region Конструкторы
 
     /// <summary>
     /// Инициализирует новый экземпляр <see cref="BaseTest{TFixture}"/>.
@@ -31,5 +25,4 @@ public class BaseTest<TFixture> : IClassFixture<TFixture> where TFixture : class
         _fixture = fixture;
     }
 
-    #endregion
 }

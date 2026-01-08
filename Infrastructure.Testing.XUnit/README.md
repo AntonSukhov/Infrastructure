@@ -63,6 +63,26 @@ Ensure an action throws one of two expected exception types
     }, 
     "Invalid input should throw either ArgumentException or InvalidOperationException");
 
+Check that collections are equal (using a custom comparer):
+
+    var actual = new List<WorkUnitModel> { /* ... */ };
+    var expected = new List<WorkUnitModel> { /* ... */ };
+
+    var comparer = new WorkUnitModelEqualityComparer();
+
+    AssertHelper.CollectionEqual(
+    (
+        actual,
+        expected,
+        comparer,
+        "GetAllAsync returned incorrect list of work units"
+    );
+Note: CollectionEqual verifies that:
+
+    a) Both collections are either null (considered equal) or non‑null.
+    b) If one is null and the other isn’t — fails with a clear message.
+    c) If both are non‑null, checks element‑wise equality using the provided comparer.
+    d) On mismatch, reports the error with your custom message (or a default one).
 
 Main Types  
 

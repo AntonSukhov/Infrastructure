@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Infrastructure.Testing.XUnit.Helpers
 {
@@ -7,8 +9,6 @@ namespace Infrastructure.Testing.XUnit.Helpers
     /// </summary>
     public static class AssertHelper
     {
-        #region Методы
-
         /// <summary>
         /// Проверяет, что указанное действие не выбрасывает никаких исключений.
         /// Если исключение выбрасывается, тест завершается с ошибкой.
@@ -68,6 +68,32 @@ namespace Infrastructure.Testing.XUnit.Helpers
             }
         }
 
-        #endregion
+        /// <summary>
+        /// Проверяет, что коллекция не null и содержит те же элементы, что и ожидаемая (с учётом компаратора).
+        /// </summary>
+        /// <typeparam name="T">Тип элементов коллекции.</typeparam>
+        /// <param name="actual">Фактическая коллекция.</param>
+        /// <param name="expected">Ожидаемая коллекция.</param>
+        /// <param name="comparer">Компаратор для сравнения элементов.</param>
+        /// <param name="message">Сообщение при ошибке.</param>
+        public static void CollectionEqual<T>(
+            IEnumerable<T> actual,
+            IEnumerable<T> expected,
+            IEqualityComparer<T> comparer,
+            string? message = null)
+        {
+            if (actual is null && expected is null)
+                return;
+
+            if (actual is null)
+                Assert.Fail(message ?? $"Фактическая коллекция null, но ожидаемая не null.");
+            
+            if (expected is null)
+                Assert.Fail(message ?? "Ожидаемая коллекция null, но фактическая не null.");
+
+            if (!actual.SequenceEqual(expected, comparer))
+                Assert.Fail(message ?? "Коллекции не равны.");
+        }
+
     }
 }
