@@ -12,9 +12,18 @@ public class TestCaseInputWithStubs<TIn>: TestCaseInput<TIn>
     /// Получает или задает словарь выходных данных для заглушек.
     /// </summary>
     /// <remarks>
-    /// Ключ — составной (имя тестируемого метода, порядковый номер данных в словаре),
-    /// значение — экземпляр класса <see cref="StubOutputs"/> с выходными данными для заглушек.
+    /// Словарь состоит из пар «ключ-значение»:
+    /// <list type="table">
+    ///   <item>
+    ///     <term>Ключ</term>
+    ///     <description>Экземпляр класса <see cref="StubOutputKey"/>.</description>
+    ///   </item>
+    ///   <item>
+    ///     <term>Значение</term>
+    ///     <description>Экземпляр класса <see cref="StubOutput"/> с выходными данными для заглушек.</description>
+    ///   </item>
+    /// </list>
     /// </remarks>
-    public required IDictionary<(string MethodName, int SequenceNumber), StubOutput> StubOutputs { get; set; } 
+    public required IDictionary<StubOutputKey, StubOutput> StubOutputs { get; set; } 
 
 }

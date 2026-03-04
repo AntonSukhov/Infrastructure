@@ -42,10 +42,10 @@ Scenario without input (only output and with stubs):
         ScenarioNumber = 3,
         OutputData = new List<DepartmentModel> { /* ... */ },
         Description = "GetAll with mocked repository",
-        StubOutputs = new Dictionary<(string, int), StubOutput>
+        StubOutputs = new Dictionary<StubOutputKey, StubOutput>
         {
             {
-                (RepositoryMethodNames.DepartmentRepository.GetAll, 1),
+                new StubOutputKey(RepositoryMethodNames.DepartmentRepository.GetAll, 1),
                 new StubOutput
                 {
                     OutputData = new List<DepartmentEntity> { /* ... */ },
@@ -64,10 +64,10 @@ Scenario with stubs:
         InputData = 15,
         OutputData = new DepartmentModel { Id = 15, Name = "Dept 15" },
         Description = "Retrieve existing department",
-        StubOutputs = new Dictionary<(string, int), StubOutput>
+        StubOutputs = new Dictionary<StubOutputKey, StubOutput>
         {
             {
-                (RepositoryMethodNames.DepartmentRepository.GetDepartmentById, 1),
+                new StubOutputKey(RepositoryMethodNames.DepartmentRepository.GetDepartmentById, 1),
                 new StubOutput 
                 {
                     OutputData = new DepartmentEntity { Id = 15, Name = "Dept 15" },
@@ -96,10 +96,10 @@ Usage example:
             Name = "Department 15"
         },
         Description = "Retrieving department data that is present in the database.",
-        StubOutputs = new Dictionary<(string, int), StubOutput>
+        StubOutputs = new Dictionary<StubOutputKey, StubOutput>
         {
             {
-                (RepositoryMethodNames.DepartmentRepository.GetDepartmentById, 1),
+                new StubOutputKey(RepositoryMethodNames.DepartmentRepository.GetDepartmentById, 1),
                 new StubOutput
                 {
                     OutputData = new DepartmentEntity
@@ -114,8 +114,10 @@ Usage example:
     }
 
     var stubOutput = testCase.StubOutputs[
-            (MethodName: RepositoryMethodNames.DepartmentRepository.GetDepartmentById,
-             SequenceNumber: 1)];
+            new StubOutputKey(
+                MethodName: RepositoryMethodNames.DepartmentRepository.GetDepartmentById,
+                SequenceNumber: 1)
+    ];
     var outputData = stubOutput.GetOutputData<DepartmentEntity>();  // Safe type casting
     
 Note: GetOutputData<T> throws InvalidCastException if OutputData type doesn’t match T.
@@ -139,8 +141,10 @@ Example:
         {
             // Arrange
             var stubOutput = testCase.StubOutputs[
-                (MethodName: RepositoryMethodNames.DepartmentRepository.GetDepartmentById,
-                SequenceNumber: 1)];
+                new StubOutputKey(
+                    MethodName: RepositoryMethodNames.DepartmentRepository.GetDepartmentById,
+                    SequenceNumber: 1)
+            ];
 
             _fixture.DepartmentRepositoryMock
                 .Setup(s => s.GetDepartmentById(It.IsAny<int>()))
@@ -162,6 +166,8 @@ The main types provided by this library are:
 
     Infrastructure.Testing.Common.StubOutput
         *(Encapsulates stub output data with safe type casting)*
+    Infrastructure.Testing.Common.StubOutputKey
+        *(Encapsulates key to identify stub output)*
     Infrastructure.Testing.Common.TestCaseBase
         *(Base class for all test scenarios; contains ScenarioNumber and Description)*
     Infrastructure.Testing.TestCases.TestCaseInput<TIn>

@@ -29,8 +29,10 @@ public class GetDepartmentByIdTests : BaseTest<DepartmentServiceFixture>
     {
         // Arrange:
         var stubOutput = testCase.StubOutputs[
-            (MethodName: RepositoryMethodNames.DepartmentRepository.GetDepartmentById,
-             SequenceNumber: 1)];
+            new StubOutputKey(
+                MethodName: RepositoryMethodNames.DepartmentRepository.GetDepartmentById,
+                SequenceNumber: 1)
+            ];
 
         _fixture.DepartmentRepositoryMock
             .Setup(s => s.GetDepartmentById(It.IsAny<int>()))
@@ -86,10 +88,10 @@ public class GetDepartmentByIdTests : BaseTest<DepartmentServiceFixture>
                 Name = "Department 15"
             },
             Description = "Получение данных отдела, который присутствует в хранилище.",
-            StubOutputs = new Dictionary<(string, int), StubOutput>
+            StubOutputs = new Dictionary<StubOutputKey, StubOutput>
             {
                 {
-                    (RepositoryMethodNames.DepartmentRepository.GetDepartmentById, 1),
+                    new StubOutputKey(RepositoryMethodNames.DepartmentRepository.GetDepartmentById, 1),
                     new StubOutput
                     {
                         OutputData = new DepartmentEntity

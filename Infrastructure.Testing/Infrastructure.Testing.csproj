@@ -4,7 +4,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>Infrastructure.Testing</PackageId>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <Authors>Sukhov A.A.</Authors>
     <Description> The package is designed to be able to use classes, services, helpers, models, and other general-purpose components in testing  .NET applications. 
         This package simplifies development by allowing developers to focus on testing program rather than technical details. 
@@ -15,7 +15,7 @@
     <PackageProjectUrl>https://github.com/AntonSukhov/Infrastructure</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <Copyright>© 2026 Sukhov A.A. All rights reserved.</Copyright>
-</PropertyGroup>
+  </PropertyGroup>
   <ItemGroup>
     <Folder Include="Common/" />
   </ItemGroup>
