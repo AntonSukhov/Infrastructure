@@ -10,30 +10,24 @@ namespace Infrastructure.EntityFramework.Extensions;
 /// </summary>
 public static class QueryableExtensions
 {
-    #region Поля
-
     /// <summary>
-    /// Метаданные метода <see cref="Enumerable.DefaultIfEmpty{TSource}(IEnumerable{TSource})"/>.
+    /// Метаданные метода <see cref="Enumerable.DefaultIfEmpty"/>.
     /// </summary>
     private static readonly MethodInfo EnumerableDefaultIfEmptyMetadata = typeof(Enumerable).GetMethods()
-                                                                                            .First(m => m.Name == nameof(Enumerable.DefaultIfEmpty) &&   
-                                                                                                        m.GetParameters().Length == 1);
+                                            .First(m => m.Name == nameof(Enumerable.DefaultIfEmpty) &&   
+                                                        m.GetParameters().Length == 1);
     /// <summary>
-    /// Метаданные метода <see cref="Queryable.SelectMany{TSource, TCollection, TResult}(IQueryable{TSource}, Expression{Func{TSource, IEnumerable{TCollection}}}, Expression{Func{TSource, TCollection, TResult}})"/>.
+    /// Метаданные метода <see cref="Queryable.SelectMany"/>.
     /// </summary>
     private static readonly MethodInfo QueryableSelectManyMetadata = typeof(Queryable).GetMethods()
-                                                                                      .Last(m => m.Name == nameof(Queryable.SelectMany) && 
-                                                                                                 m.GetParameters().Length == 3);
+                                            .Last(m => m.Name == nameof(Queryable.SelectMany) && 
+                                                        m.GetParameters().Length == 3);
     /// <summary>
-    /// Метаданные метода <see cref="Queryable.GroupJoin{TOuter, TInner, TKey, TResult}(IQueryable{TOuter}, IEnumerable{TInner}, Expression{Func{TOuter, TKey}}, Expression{Func{TInner, TKey}}, Expression{Func{TOuter, IEnumerable{TInner}, TResult}})"/>.
+    /// Метаданные метода <see cref="Queryable.GroupJoin"/>.
     /// </summary>
     private static readonly MethodInfo QueryableGroupJoinMetadata = typeof(Queryable).GetMethods()
-                                                                                     .First(m => m.Name == nameof(Queryable.GroupJoin) && 
-                                                                                                 m.GetParameters().Length == 5);
-
-    #endregion
-
-    #region Методы
+                                            .First(m => m.Name == nameof(Queryable.GroupJoin) && 
+                                                        m.GetParameters().Length == 5);
 
     /// <summary>
     /// Соединяет две последовательности с помощью левого соединения.
@@ -142,7 +136,6 @@ public static class QueryableExtensions
         return (IQueryable<TResult>)selectManyResult;
     }
 
-
     /// <summary>
     /// Предоставляет запрос получения страницы элементов.
     /// </summary>
@@ -150,7 +143,8 @@ public static class QueryableExtensions
     /// <param name="query">Запрос элементов.</param>
     /// <param name="pageOptions">Настройки страницы.</param>
     /// <returns>Запрос получения страницы элементов.</returns>
-    public static IQueryable<T> Page<T>(this IQueryable<T> query, PageOptionsModel pageOptions)
+    public static IQueryable<T> Page<T>(this IQueryable<T> query, 
+        PageOptionsModel? pageOptions = null)
     {
         if (pageOptions == null)
             return query;
@@ -169,14 +163,13 @@ public static class QueryableExtensions
     /// <param name="pageOptions">Настройки страницы.</param>
     /// <param name="cancellationToken">Объект, который необходимо наблюдать в ожидании завершения задачи.</param>
     /// <returns>Список элементов.</returns>
-    public static async Task<List<T>> ToListAsync<T>(this IQueryable<T> query, PageOptionsModel pageOptions,
+    public static async Task<List<T>> ToListAsync<T>(this IQueryable<T> query, 
+        PageOptionsModel? pageOptions = null,
         CancellationToken cancellationToken = default)
     {
         return await query.Page(pageOptions)
                             .ToListAsync(cancellationToken);
     }
-
-    #endregion
 }
 
 
@@ -187,38 +180,25 @@ public static class QueryableExtensions
 /// <typeparam name="TSecond">Тип данных второго объекта.</typeparam>
 internal class KeyValuePairHolder<TFirst, TSecond>
 {
-    #region Свойства
-
     /// <summary>
     /// Первый ключевой объект.
     /// </summary>
-    public TFirst ItemFirst { get; set; }
+    public TFirst? ItemFirst { get; set; }
 
     /// <summary>
     /// Второй ключевой объект.
     /// </summary>
-    public TSecond ItemSecond { get; set; }
-
-    #endregion
+    public TSecond? ItemSecond { get; set; }
 }
 
 internal class ResultSelectorRewriter<TOuter, TInner, TResult> : ExpressionVisitor
-{
-    #region Поля
-    
+{  
     private readonly ParameterExpression _oldTOuterParamExpression;
     private readonly ParameterExpression _oldTInnerParamExpression;
     private readonly ParameterExpression _newTOuterParamExpression;
     private readonly ParameterExpression _newTInnerParamExpression;
 
-    #endregion
-
-    #region Свойства
     public Expression<Func<KeyValuePairHolder<TOuter, IEnumerable<TInner>>, TInner, TResult>> CombinedExpression { get; }
-
-    #endregion
-
-    #region Конструторы
 
     public ResultSelectorRewriter(Expression<Func<TOuter, TInner, TResult>> resultSelector)
     {
@@ -234,10 +214,6 @@ internal class ResultSelectorRewriter<TOuter, TInner, TResult> : ExpressionVisit
         CombinedExpression = (Expression<Func<KeyValuePairHolder<TOuter, IEnumerable<TInner>>, TInner, TResult>>)combinedExpression;
     }
 
-    #endregion
-    
-    #region Методы
-
     protected override Expression VisitParameter(ParameterExpression node)
     {
         if (node == _oldTInnerParamExpression)
@@ -248,6 +224,4 @@ internal class ResultSelectorRewriter<TOuter, TInner, TResult> : ExpressionVisit
         else
             throw new ArgumentException($"Неизвестный параметр: {node}");
     }
-
-    #endregion
 }

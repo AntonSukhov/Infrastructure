@@ -5,15 +5,21 @@ namespace Infrastructure.EntityFramework.DbContexts;
 /// <summary>
 /// Базовый контекст работы с базой данных.
 /// </summary>
-/// <param name="options">Опции контекста работы с базой данных, которые определяют конфигурацию подключения и поведение.</param>
 /// <remarks>
 /// Предоставляет общие методы для добавления, обновления и удаления сущностей в базе данных,
 /// а также управляет состоянием сущностей. Он наследуется от <see cref="DbContext"/> 
 /// и предназначен для использования в производных классах, которые реализуют конкретные контексты базы данных.
 /// </remarks>
-public abstract class DbContextBase(DbContextOptions options) : DbContext(options)
+public abstract class DbContextBase : DbContext
 {
-    #region Методы
+
+    /// <summary>
+    /// Инициализирует экземпляр <see cref="DbContextBase"/>.
+    /// </summary>
+    /// <param name="options">
+    /// Опции контекста работы с базой данных, которые определяют конфигурацию подключения и поведение.
+    /// </param>
+    public DbContextBase(DbContextOptions options): base(options) {}
 
     /// <summary>
     /// Добавляет сущность в базу данных.
@@ -44,7 +50,9 @@ public abstract class DbContextBase(DbContextOptions options) : DbContext(option
     /// <param name="entity">Обновляемая сущность.</param>
     /// <param name="updatedProperties">Перечень обновляемых свойств сущности. Если <c>null</c>, обновляются все свойства.</param>
     /// <returns>Задача, представляющая асинхронную операцию.</returns>
-    public virtual async Task UpdateEntityAsync<TEntity>(TEntity entity, IEnumerable<string>? updatedProperties = null) where TEntity : class
+    public virtual async Task UpdateEntityAsync<TEntity>(TEntity entity, 
+        IEnumerable<string>? updatedProperties = null) 
+        where TEntity : class
     {
         ArgumentNullException.ThrowIfNull(entity);
 
@@ -91,6 +99,4 @@ public abstract class DbContextBase(DbContextOptions options) : DbContext(option
             Entry(entity).State = EntityState.Detached;
         }
     }
-
-    #endregion
 }
