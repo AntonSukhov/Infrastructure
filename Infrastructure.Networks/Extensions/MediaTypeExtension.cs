@@ -7,8 +7,6 @@ namespace Infrastructure.Networks.Extensions;
 /// </summary>
 public static class MediaTypeExtension
 {
-    #region Методы
-
     /// <summary>
     /// Преобразует значение типа медиа в его строковое представление.
     /// </summary>
@@ -28,6 +26,4 @@ public static class MediaTypeExtension
             _ => throw new ArgumentOutOfRangeException(nameof(mediaType))
         };
     }
-
-    #endregion
 }

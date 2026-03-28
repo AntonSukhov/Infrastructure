@@ -10,8 +10,6 @@ namespace Infrastructure.Networks.Extensions;
 /// </summary>
 public static class HttpClientExtension
 {
-    #region Методы
-
     /// <summary>
     /// Асинхронно отправляет POST-запрос с объектом в формате JSON и получает ответ в виде объекта.
     /// </summary>
@@ -43,6 +41,4 @@ public static class HttpClientExtension
         
         return output;
 	}
-
-    #endregion
 }

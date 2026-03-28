@@ -7,13 +7,7 @@ namespace Infrastructure.Networks.Services;
 /// </summary>
 public static class HttpClientService
 {
-    #region Поля
-
     private static readonly ServiceProvider _defaultServiceProvider = InitializeServiceProvider();
-
-    #endregion
-
-    #region Методы
 
     /// <summary>
     /// Создаёт экземпляр Http-клиента с настройками по умолчанию.
@@ -46,6 +40,4 @@ public static class HttpClientService
 
         return services.BuildServiceProvider();
     }
-
-    #endregion
 }
