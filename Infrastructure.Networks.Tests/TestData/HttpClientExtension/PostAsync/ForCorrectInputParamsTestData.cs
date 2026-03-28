@@ -10,8 +10,6 @@ namespace Infrastructure.Networks.Tests.TestData.HttpClientExtension.PostAsync
     /// </summary>
     public static class ForCorrectInputParamsTestData
     {
-        #region Методы
-
         public static TheoryData<HttpClient, string, PostDataModel, JsonSerializerOptions?, MediaType> GetTestData()
         {
             var url = "https://jsonplaceholder.typicode.com/posts";
@@ -24,6 +22,5 @@ namespace Infrastructure.Networks.Tests.TestData.HttpClientExtension.PostAsync
             };
         }
 
-        #endregion
     }
 }

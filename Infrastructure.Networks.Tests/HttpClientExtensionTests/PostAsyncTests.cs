@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using Infrastructure.Networks.Enums;
+﻿using Infrastructure.Networks.Enums;
 using Infrastructure.Networks.Extensions;
 using Infrastructure.Networks.Tests.HttpClientExtensionTests.Models;
 using Infrastructure.Networks.Tests.TestData.HttpClientExtension.PostAsync;
@@ -12,10 +11,9 @@ namespace Infrastructure.Networks.Tests.HttpClientExtensionTests
     /// </summary>
     public class PostAsyncTests
     {
-        #region Методы
-
         /// <summary>
-        /// Тест проверки метода асинхронной отправки данных на сервер, заключенные в тело сообщения для некорректных входных параметров.
+        /// Тест проверки метода асинхронной отправки данных на сервер, заключенные в тело сообщения 
+        /// для некорректных входных параметров.
         /// </summary>
         /// <param name="httpClient">Экземпляр <see cref="HttpClient"/>, используемый для отправки запроса.</param>
         /// <param name="url">URL-адрес, на который будет отправлен запрос.</param>
@@ -26,17 +24,25 @@ namespace Infrastructure.Networks.Tests.HttpClientExtensionTests
         [Theory]
         [MemberData(nameof(ForIncorrectInputParamsTestData.GetTestData),
                     MemberType = typeof(ForIncorrectInputParamsTestData))]
-        public async Task ForIncorrectInputParams(HttpClient httpClient, string url, PostDataModel? inputObject, JsonSerializerOptions? options, MediaType mediaType)
+        public async Task ForIncorrectInputParams(HttpClient httpClient, string url, 
+            PostDataModel? inputObject, JsonSerializerOptions? options, MediaType mediaType)
         {
-            var func = async () => await HttpClientExtension.PostAsync<PostDataModel?, PostDataModel?>(httpClient, url, inputObject, options, mediaType);
-
-            var exception = await func.Should().ThrowAsync<Exception>();
-
-            exception.Match(p => p.Any(p1 => p1 is ArgumentException || p1 is ArgumentNullException || p1 is ArgumentOutOfRangeException));
+            // Arrange & Act & Assert:
+            var exception = await Assert.ThrowsAnyAsync<Exception>(
+                async () => await HttpClientExtension.PostAsync<PostDataModel?, PostDataModel?>(
+                    httpClient, url, inputObject, options, mediaType));
+            
+            // Проверяем, что исключение относится к разрешённым типам     
+            Assert.True(
+                exception is ArgumentException || 
+                exception is ArgumentNullException ||
+                exception is ArgumentOutOfRangeException
+            );
         }
 
         /// <summary>
-        /// Тест проверки метода асинхронной отправки данных на сервер, заключенные в тело сообщения для корректных входных параметров.
+        /// Тест проверки метода асинхронной отправки данных на сервер, заключенные в тело сообщения 
+        /// для корректных входных параметров.
         /// </summary>
         /// <param name="httpClient">Экземпляр <see cref="HttpClient"/>, используемый для отправки запроса.</param>
         /// <param name="url">URL-адрес, на который будет отправлен запрос.</param>
@@ -47,15 +53,16 @@ namespace Infrastructure.Networks.Tests.HttpClientExtensionTests
         [Theory]
         [MemberData(nameof(ForCorrectInputParamsTestData.GetTestData),
                     MemberType = typeof(ForCorrectInputParamsTestData))]
-        public async Task ForCorrectInputParams(HttpClient httpClient, string url, PostDataModel inputObject, JsonSerializerOptions? options, MediaType mediaType)
-        {
-            var func = async () => await HttpClientExtension.PostAsync<PostDataModel, PostDataModel>(httpClient, url, inputObject, options, mediaType);
+        public async Task ForCorrectInputParams(HttpClient httpClient, string url, PostDataModel inputObject, 
+            JsonSerializerOptions? options, MediaType mediaType)
+        {   
+            // Arrange & Act:
+            var result = await HttpClientExtension.PostAsync<PostDataModel, PostDataModel>(httpClient, url, 
+                inputObject, options, mediaType);
 
-            var actual = await func();
-
-            actual.Should().NotBeNull();
+            // Assert:
+            Assert.NotNull(result);
         }
 
-        #endregion
     }
 }

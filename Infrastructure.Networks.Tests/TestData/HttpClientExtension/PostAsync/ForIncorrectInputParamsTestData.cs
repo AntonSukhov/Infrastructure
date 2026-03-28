@@ -10,8 +10,6 @@ namespace Infrastructure.Networks.Tests.TestData.HttpClientExtension.PostAsync
     /// </summary>
     public static class ForIncorrectInputParamsTestData
     {
-        #region Методы
-
         public static TheoryData<HttpClient, string, PostDataModel?, JsonSerializerOptions?, MediaType> GetTestData()
         {
             var url = "api_url";
@@ -26,7 +24,5 @@ namespace Infrastructure.Networks.Tests.TestData.HttpClientExtension.PostAsync
                 { httpClient, url, null, JsonSerializerOptions.Default, MediaType.Json }
             };
         }
-
-        #endregion
     }
 }

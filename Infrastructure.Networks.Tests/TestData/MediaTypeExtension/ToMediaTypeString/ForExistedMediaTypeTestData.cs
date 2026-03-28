@@ -8,8 +8,6 @@ namespace Infrastructure.Networks.Tests.TestData.MediaTypeExtension.ToMediaTypeS
 /// </summary>
 public class ForExistedMediaTypeTestData : TheoryData<MediaType>
 {
-    #region Конструкторы
-
     public ForExistedMediaTypeTestData()
     {
         Add(MediaType.Json);
@@ -18,6 +16,4 @@ public class ForExistedMediaTypeTestData : TheoryData<MediaType>
         Add(MediaType.Text);
         Add(MediaType.FormUrlEncoded);
     }
-
-    #endregion
 }

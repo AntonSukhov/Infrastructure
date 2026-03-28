@@ -1,4 +1,3 @@
-using FluentAssertions;
 using Infrastructure.Networks.Services;
 
 namespace Infrastructure.Networks.Tests.HttpClientServiceTests;
@@ -8,19 +7,19 @@ namespace Infrastructure.Networks.Tests.HttpClientServiceTests;
 /// </summary>
 public class CreateDefaultHttpClientTests
 {
-    #region Методы
-
     /// <summary>
     /// Тест проверки метода создания Http-клиента с настройками по умолчанию без выброса исключений.
     /// </summary>
     [Fact]
     public void NotThrowException()
     {
+        // Arrange
         var func = () => HttpClientService.CreateDefaultHttpClient();
-
-        func.Invoking(f => f()).Should().NotThrow()
-                               .Which.Should().NotBeNull();
+    
+        // Act 
+        var result = func();
+        
+        // Assert
+        Assert.NotNull(result);
     }
-
-    #endregion
 }

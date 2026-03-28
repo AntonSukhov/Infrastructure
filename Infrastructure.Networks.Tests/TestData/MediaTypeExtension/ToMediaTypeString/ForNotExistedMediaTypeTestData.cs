@@ -8,8 +8,6 @@ namespace Infrastructure.Networks.Tests.TestData.MediaTypeExtension.ToMediaTypeS
 /// </summary>
 public class ForNotExistedMediaTypeTestData : TheoryData<MediaType>
 {
-    #region Конструкторы
-
     public ForNotExistedMediaTypeTestData()
     {
         var maxValue = int.MaxValue;
@@ -18,6 +16,4 @@ public class ForNotExistedMediaTypeTestData : TheoryData<MediaType>
         Add((MediaType)maxValue - 1);
         Add((MediaType)maxValue - 10);
     }
-
-    #endregion
 }
