@@ -1,5 +1,4 @@
 using System.Text.Json;
-using FluentAssertions;
 using Infrastructure.Shared.Services;
 using Infrastructure.Shared.Tests.JsonSerializationServiceTests.Models;
 using Infrastructure.Shared.Tests.TestData.JsonSerializationService.DeserializeAsync;
@@ -11,8 +10,6 @@ namespace Infrastructure.Shared.Tests.JsonSerializationServiceTests;
 /// </summary>
 public class DeserializeAsyncTests
 {
-    #region Методы
-
     /// <summary>
     /// Тест проверки метода асинхронной сериализации объект в строку формата JSON для корректных входных параметров.
     /// </summary>
@@ -26,16 +23,19 @@ public class DeserializeAsyncTests
     public async Task ForCorrectInputParams(string employeeJson, JsonSerializerOptions? jsonSerializerOptions,
         CancellationToken cancellationToken)
     {
-        var actual = await JsonSerializationService.DeserializeAsync<EmployeeModel>(employeeJson, jsonSerializerOptions,
+        // Arrange & Act:
+        var result = await JsonSerializationService.DeserializeAsync<EmployeeModel>(
+            employeeJson, 
+            jsonSerializerOptions,
             cancellationToken);
 
-        actual.Should().NotBeNull()
-                        .And
-                        .Match<EmployeeModel>(p => p.Id > 0 &&
-                                                    !string.IsNullOrWhiteSpace(p.Fio) &&
-                                                    p.Gender == Gender.Male || p.Gender == Gender.Female &&
-                                                    p.Birthdate != default &&
-                                                    p.Salary >= 0m);
+        // Assert:
+        Assert.NotNull(result);
+        Assert.True(result.Id > 0);
+        Assert.False(string.IsNullOrWhiteSpace(result.Fio));
+        Assert.Contains(result.Gender, new[] { Gender.Male, Gender.Female });
+        Assert.NotEqual(default, result.Birthdate);
+        Assert.True(result.Salary >= 0m);
     }
 
     /// <summary>
@@ -51,13 +51,19 @@ public class DeserializeAsyncTests
     public async Task ForIncorrectInputParams(string employeeJson, JsonSerializerOptions? jsonSerializerOptions,
         CancellationToken cancellationToken)
     {
-        var action = async () => await JsonSerializationService.DeserializeAsync<EmployeeModel>(employeeJson,
-            jsonSerializerOptions, cancellationToken);
+        // Arrange & Act & Assert:
+        var exception = await Assert.ThrowsAnyAsync<Exception>(
+            async () => await JsonSerializationService.DeserializeAsync<EmployeeModel>(
+                employeeJson,
+                jsonSerializerOptions, 
+                cancellationToken)
+        );
 
-        var exception = await action.Should().ThrowAsync<Exception>();
-
-        exception.Match(p => p.Any(p1 => p1 is ArgumentException || p1 is ArgumentNullException || p1 is Exception));
+        // Проверяем, что исключение относится к разрешённым типам     
+        Assert.True(
+            exception is ArgumentException || 
+            exception is ArgumentNullException ||
+            exception is Exception
+        );
     }
-    
-    #endregion
 }

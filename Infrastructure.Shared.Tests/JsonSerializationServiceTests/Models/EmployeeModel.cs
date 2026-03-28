@@ -5,16 +5,12 @@ namespace Infrastructure.Shared.Tests.JsonSerializationServiceTests.Models;
 /// </summary>
 public class EmployeeModel
 {
-    #region Свойства
-
     public int Id { get; set; }
     public required string Fio { get; set; }
     public Gender Gender { get; set; }
     public DateTime Birthdate { get; set; }
     public decimal Salary { get; set; }
     public bool Dismissed { get; set; }
-
-    #endregion
 }
 
 public enum Gender

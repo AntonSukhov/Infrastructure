@@ -10,8 +10,6 @@ namespace Infrastructure.Shared.Tests.TestData.JsonSerializationService.Deserial
 
 public static class ForIncorrectInputParamsTestData
 { 
-    #region Методы
-
     public static TheoryData<string, JsonSerializerOptions?, CancellationToken> GetTestData()
     {
         var employeeWithUndefinedGender= "{\"Id\":6,\"Fio\":\"Лебедева Ольга Васильевна\",\"Gender\":null,\"Birthdate\":\"1992-04-12T00:00:00\",\"Salary\":80000.0}";
@@ -25,6 +23,4 @@ public static class ForIncorrectInputParamsTestData
             { employeeWithUndefinedGender, null, default }
         };
     }
-
-    #endregion
 }

@@ -9,9 +9,6 @@ namespace Infrastructure.Shared.Tests.TestData.JsonSerializationService.Serializ
 /// </summary>
 public static class ForCorrectInputParamsTestData
 {
-
-    #region Методы
-
     public static TheoryData<EmployeeModel, JsonSerializerOptions?, CancellationToken> GetTestData()
     {
         var employee = new EmployeeModel
@@ -80,6 +77,4 @@ public static class ForCorrectInputParamsTestData
             {employeeWithUndefinedGender, JsonSerializerOptions.Default, default},
         };
     }
-
-    #endregion
 }
