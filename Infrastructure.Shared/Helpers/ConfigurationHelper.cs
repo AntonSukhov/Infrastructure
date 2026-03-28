@@ -7,8 +7,6 @@ namespace Infrastructure.Shared.Helpers;
 /// </summary>
 public static class ConfigurationHelper
 {
-    #region Методы
-
     /// <summary>
     /// Получает значение секрета.
     /// </summary>
@@ -25,6 +23,4 @@ public static class ConfigurationHelper
 
         return configuration[secretSectionName];
     }
-
-    #endregion
 }

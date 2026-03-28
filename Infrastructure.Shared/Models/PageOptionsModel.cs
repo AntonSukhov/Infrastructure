@@ -10,7 +10,6 @@ namespace Infrastructure.Shared.Models;
 /// </remarks>
 public class PageOptionsModel
 {
-    #region Свойства
     /// <summary>
     /// Получает или задает порядковый номер страницы.
     /// </summary>
@@ -28,5 +27,4 @@ public class PageOptionsModel
     /// </remarks>
     public int PageSize { get; set; }
 
-    #endregion
 }

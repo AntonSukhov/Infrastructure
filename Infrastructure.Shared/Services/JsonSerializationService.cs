@@ -9,8 +9,6 @@ namespace Infrastructure.Shared.Services;
 /// </summary>
 public static class JsonSerializationService
 {
-    #region Методы
-
     /// <summary>
     /// Асинхронно сериализует объект в строку формата JSON.
     /// </summary>
@@ -58,6 +56,4 @@ public static class JsonSerializationService
 
         return value ?? throw new JsonException(ConstantsHelper.JsonDeserializationErrorMessage);
     }
-
-    #endregion
 }
