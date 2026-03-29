@@ -8,11 +8,13 @@ Inherit from StartupBase to create your application‑specific startup logic:
 
     internal class Startup: StartupBase
     {
-        public Startup(IConfiguration configuration): base(configuration){}
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment): base(configuration, environment)){}
 
         public override void ConfigureServices(IServiceCollection services)
         {
             base.ConfigureServices(services);
+
+            var isDevelopment = Environment.IsDevelopment();
 
             services.AddHttpLogging(opts => opts.LoggingFields = HttpLoggingFields.All);
             services.AddSingleton<IPersonService, PersonService>();
@@ -36,31 +38,31 @@ Inherit from StartupBase to create your application‑specific startup logic:
             app.UseStaticFiles();
             app.UseRouting();
             
-        app.MapPost("/persons", (Person person, IPersonService personService) =>
-        {
-            personService.AddPerson(person);
+            app.MapPost("/persons", (Person person, IPersonService personService) =>
+            {
+                personService.AddPerson(person);
 
-            return TypedResults.NoContent();
-        });
+                return TypedResults.NoContent();
+            });
 
-        app.MapGet("/persons/{id}", ( 
-            [AsParameters] SearchModel search) =>
-        {
-            return search.ToString();
-        });
+            app.MapGet("/persons/{id}", ( 
+                [AsParameters] SearchModel search) =>
+            {
+                return search.ToString();
+            });
 
-        app.MapPost("/users/", (UserModel userModel)=>
-        {
-            return userModel.ToString();
-        })
-        .WithParameterValidation();
+            app.MapPost("/users/", (UserModel userModel)=>
+            {
+                return userModel.ToString();
+            })
+            .WithParameterValidation();
         }
     }
 
 Use your Startup class in the main Program.cs file:
 
     var builder = WebApplication.CreateBuilder(args);
-    var startup = new Startup(builder.Configuration);
+    var startup = new Startup(builder.Configuration, builder.Environment);
 
     startup.ConfigureServices(builder.Services);
     startup.ConfigureLogging(builder.Logging);
