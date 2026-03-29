@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>Library</OutputType>
+    <IsPackable>true</IsPackable>
+    <PackageId>Infrastructure.AspNetCore</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Sukhov A.A.</Authors>
+    <Description> The package is intended for the use of classes, services, assistants, models and other general-purpose components in the development of web applications and APIs using ASP.NetCore.
+        This package simplifies development by allowing developers to focus on business tasks rather than technical details.
+        In the future, it is planned to add additional general-purpose classes and interfaces to expand functionality.</Description>
+    <PackageTags>testing;dotnet</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/AntonSukhov/Infrastructure.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/AntonSukhov/Infrastructure</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <Copyright>© 2026 Sukhov A.A. All rights reserved.</Copyright>
+  </PropertyGroup>
+</Project>
