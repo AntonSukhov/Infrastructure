@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>Library</OutputType>
+    <IsPackable>true</IsPackable>
+    <PackageId>Infrastructure.Disposable</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Sukhov A.A.</Authors>
+
+    <Description> The package that provides basic components for resource disposal in applications.
+      Simplifies disposal implementation by offering reusable abstractions and supporting elements.
+      Allows developers to focus on business logic instead of low‑level disposal details.
+      Future updates will enhance functionality with additional utilities and disposal templates.</Description>
+    <PackageTags>dotnet</PackageTags>
+    
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/AntonSukhov/Infrastructure.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/AntonSukhov/Infrastructure</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <Copyright>© 2026 Sukhov A.A. All rights reserved.</Copyright>
+  </PropertyGroup>
+
+</Project>
