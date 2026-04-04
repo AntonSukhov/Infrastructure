@@ -1,5 +1,4 @@
 ﻿using Infrastructure.Networks.Enums;
-using Infrastructure.Networks.Services;
 using Infrastructure.Networks.Tests.HttpClientExtensionTests.Models;
 using System.Text.Json;
 
@@ -14,7 +13,15 @@ namespace Infrastructure.Networks.Tests.TestData.HttpClientExtension.PostAsync
         {
             var url = "api_url";
             var postDataModel = new PostDataModel { Title = "foo", Body = "bar", UserId = 1 };
-            var httpClient = HttpClientService.CreateDefaultHttpClient();
+            var httpClient = new HttpClient
+            {
+                Timeout = TimeSpan.FromSeconds(10), // Короткий таймаут для тестов
+                DefaultRequestHeaders =
+                {
+                    {"User-Agent", "TestClient/1.0"},
+                    {"Accept", "application/json"}
+                }
+            };
 
             return new TheoryData<HttpClient, string, PostDataModel?, JsonSerializerOptions?, MediaType>
             {

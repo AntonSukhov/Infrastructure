@@ -17,10 +17,19 @@ How to Use
     var message = string.Empty;
     var url = "https://jsonplaceholder.typicode.com/posts"; //Public API. I use the POST method for verification.
     var inputObject = new PostDataModel { Title = "foo", Body = "bar", UserId = 1 };
-    var httpClient = HttpClientService.CreateDefaultHttpClient();
+    var httpClient = new HttpClient
+    {
+        Timeout = TimeSpan.FromSeconds(10),
+        DefaultRequestHeaders =
+        {
+            {"User-Agent", "TestClient/1.0"},
+            {"Accept", "application/json"}
+        }
+    };
     var mediaTypeAsString = MediaType.Json.ToMediaTypeString();
 
-    var outputObject = await httpClient.PostAsync<PostDataModel, PostDataModel>(url, inputObject, JsonSerializerOptions.Default, MediaType.Json);
+    var outputObject = await httpClient.PostAsync<PostDataModel, PostDataModel>(
+        url, inputObject, JsonSerializerOptions.Default, MediaType.Json);
 
     if (outputObject != null &&
         outputObject.Body == inputObject.Body &&
@@ -43,7 +52,6 @@ Main Types
 
 The main types provided by this library are:
 
-    Infrastructure.Networks.Services.HttpClientService
     Infrastructure.Networks.Enums.MediaType
     Infrastructure.Networks.Extensions.HttpClientExtension
     Infrastructure.Networks.Extensions.MediaTypeExtension

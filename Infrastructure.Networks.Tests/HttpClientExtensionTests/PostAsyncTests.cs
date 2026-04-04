@@ -24,8 +24,12 @@ namespace Infrastructure.Networks.Tests.HttpClientExtensionTests
         [Theory]
         [MemberData(nameof(ForIncorrectInputParamsTestData.GetTestData),
                     MemberType = typeof(ForIncorrectInputParamsTestData))]
-        public async Task ForIncorrectInputParams(HttpClient httpClient, string url, 
-            PostDataModel? inputObject, JsonSerializerOptions? options, MediaType mediaType)
+        public async Task ForIncorrectInputParams(
+            HttpClient httpClient, 
+            string url, 
+            PostDataModel? inputObject, 
+            JsonSerializerOptions? options, 
+            MediaType mediaType)
         {
             // Arrange & Act & Assert:
             var exception = await Assert.ThrowsAnyAsync<Exception>(
@@ -53,8 +57,12 @@ namespace Infrastructure.Networks.Tests.HttpClientExtensionTests
         [Theory]
         [MemberData(nameof(ForCorrectInputParamsTestData.GetTestData),
                     MemberType = typeof(ForCorrectInputParamsTestData))]
-        public async Task ForCorrectInputParams(HttpClient httpClient, string url, PostDataModel inputObject, 
-            JsonSerializerOptions? options, MediaType mediaType)
+        public async Task ForCorrectInputParams(
+            HttpClient httpClient, 
+            string url, 
+            PostDataModel inputObject, 
+            JsonSerializerOptions? options, 
+            MediaType mediaType)
         {   
             // Arrange & Act:
             var result = await HttpClientExtension.PostAsync<PostDataModel, PostDataModel>(httpClient, url, 

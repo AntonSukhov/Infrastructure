@@ -21,8 +21,12 @@ public static class HttpClientExtension
     /// <param name="options">Настройки сериализации и десериализации объекта в JSON и обратно. Может быть null.</param>
     /// <param name="mediaType">Тип медиа-контента, по умолчанию <see cref="MediaType.Json"/>.</param>
     /// <returns>Асинхронная задача, возвращающая десериализованный объект ответа или null в случае ошибки.</returns>
-	public static async Task<TOutput?> PostAsync<TInput, TOutput>(this HttpClient client, string url,
-        TInput inputObject, JsonSerializerOptions? options = null, MediaType mediaType =  MediaType.Json)
+	public static async Task<TOutput?> PostAsync<TInput, TOutput>(
+        this HttpClient client, 
+        string url,
+        TInput inputObject, 
+        JsonSerializerOptions? options = null, 
+        MediaType mediaType =  MediaType.Json)
     {
         ArgumentNullException.ThrowIfNull(client);        
         ArgumentException.ThrowIfNullOrWhiteSpace(url);
