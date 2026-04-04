@@ -74,6 +74,50 @@ You do not need to override the Dispose(bool) method in the class.
         }
     }
 
+4. Class with asynchronous resource disposal
+
+    public class AsyncRepository : DisposableBase
+    {
+        private readonly ContractGpdDbContextBase _dbContext;
+
+        public AsyncRepository(ContractGpdDbContextBase dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
+        // Override for async cleanup
+        protected override async ValueTask DisposeManagedResourcesAsync()
+        {
+            if (_dbContext != null)
+            {
+                await _dbContext.DisposeAsync().ConfigureAwait(false);
+            }
+        }
+
+        // Optional: also override sync disposal for compatibility
+        protected override void DisposeManagedResources()
+        {
+            _dbContext?.Dispose();
+        }
+    }
+
+Usage examples:
+
+Synchronous disposal (using):
+
+    using (var repo = new AsyncRepository(context))
+    {
+        // work with repository
+    }
+
+Asynchronous disposal (await using):
+
+    await using (var repo = new AsyncRepository(context))
+    {
+        // work with repository
+    }
+
+
 
 Main Types  
 
