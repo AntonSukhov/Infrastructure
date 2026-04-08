@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.AspNetCore",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Disposable", "Infrastructure.Disposable\Infrastructure.Disposable.csproj", "{39FB2850-6A22-4BCC-B2DE-D1BE620E0BAC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Mapping.AutoMapper", "Infrastructure.Mapping.AutoMapper\Infrastructure.Mapping.AutoMapper.csproj", "{DF7DB822-6B66-4433-8E21-1438A33F92BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -251,6 +253,18 @@ Global
 		{39FB2850-6A22-4BCC-B2DE-D1BE620E0BAC}.Release|x64.Build.0 = Release|Any CPU
 		{39FB2850-6A22-4BCC-B2DE-D1BE620E0BAC}.Release|x86.ActiveCfg = Release|Any CPU
 		{39FB2850-6A22-4BCC-B2DE-D1BE620E0BAC}.Release|x86.Build.0 = Release|Any CPU
+		{DF7DB822-6B66-4433-8E21-1438A33F92BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF7DB822-6B66-4433-8E21-1438A33F92BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF7DB822-6B66-4433-8E21-1438A33F92BA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DF7DB822-6B66-4433-8E21-1438A33F92BA}.Debug|x64.Build.0 = Debug|Any CPU
+		{DF7DB822-6B66-4433-8E21-1438A33F92BA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DF7DB822-6B66-4433-8E21-1438A33F92BA}.Debug|x86.Build.0 = Debug|Any CPU
+		{DF7DB822-6B66-4433-8E21-1438A33F92BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF7DB822-6B66-4433-8E21-1438A33F92BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF7DB822-6B66-4433-8E21-1438A33F92BA}.Release|x64.ActiveCfg = Release|Any CPU
+		{DF7DB822-6B66-4433-8E21-1438A33F92BA}.Release|x64.Build.0 = Release|Any CPU
+		{DF7DB822-6B66-4433-8E21-1438A33F92BA}.Release|x86.ActiveCfg = Release|Any CPU
+		{DF7DB822-6B66-4433-8E21-1438A33F92BA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
