@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+
+    <PackageId>Infrastructure.Mvvm</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Sukhov A.A.</Authors>
+    <Description>The package providing core MVVM components for WPF applications. 
+      Includes reusable RelayCommand implementations (generic and non-generic) 
+      to simplify command binding and execution. Designed for maximum compatibility 
+      with .NET Standard 2.0 and higher frameworks. Enables developers to focus on 
+      business logic and UI interaction flows without reinventing basic MVVM patterns.</Description>
+    <PackageTags>mvvm;wpf;command;dotnet</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/AntonSukhov/Infrastructure.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/AntonSukhov/Infrastructure</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <Copyright>© 2026 Sukhov A.A. All rights reserved.</Copyright>
+  </PropertyGroup>
+</Project>
