@@ -1,7 +1,6 @@
 {
   "sdk": {
-    "version": "9.0.115",
-    "rollForward": "latestFeature",
-    "architecture": "x64"
+    "version": "9.0.100",
+    "rollForward": "latestMajor"
   }
 }
