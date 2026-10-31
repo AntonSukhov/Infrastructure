@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Infrastructure.Mvvm.Commands
+namespace Infrastructure.Foundation.Commands
 {
     /// <summary>
-    /// Типобезопасная реализация <see cref="ICommand"/>.
+    /// Базовая реализация <see cref="ICommand"/> без строгой типизации.
     /// </summary>
-    /// <typeparam name="T">Тип данных аргументов команды.</typeparam>
-    public class RelayCommand<T> : ICommand
+    public class RelayCommand : ICommand
     {
-        private readonly Action<T> _execute;
-        private readonly Func<T, bool> _canExecute;
+        private readonly Action<object> _execute;
+        private readonly Func<object, bool> _canExecute;
 
         /// <inheritdoc/>
         public event EventHandler CanExecuteChanged;
@@ -21,32 +20,17 @@ namespace Infrastructure.Mvvm.Commands
         /// <param name="execute">Действие, выполняемое при вызове команды.</param>
         /// <param name="canExecute">Функция проверки возможности выполнения команды.</param>
         /// <exception cref="ArgumentNullException">Выбрасывается, если <paramref name="execute"/> равен null.</exception>
-        public RelayCommand(Action<T> execute, Func<T, bool> canExecute = null)
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
         {
             _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
         }
 
         /// <inheritdoc/>
-        public void Execute(object parameter)
-        {
-            if (parameter is T t)
-            {
-                _execute(t);
-            }
-        }
+        public void Execute(object parameter) => _execute(parameter);
 
         /// <inheritdoc/>
-        public bool CanExecute(object parameter)
-        {
-            if (_canExecute == null)
-                return true;
-
-            if (parameter is T t)
-                return _canExecute(t);
-
-            return false;
-        }
+        public bool CanExecute(object parameter) => _canExecute == null || _canExecute(parameter);
 
         /// <summary>
         /// Принудительно уведомление подписанта о изменении состояния команды.
