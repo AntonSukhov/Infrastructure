@@ -13,7 +13,9 @@ The package provides:
 
 - a) `ICommand` implementations — an untyped one and a type-safe generic one;
 - b) a base class that raises `INotifyPropertyChanged` only when a value actually changes;
-- c) an extended base class that also reports the *previous* and the *current* value of a property.
+- c) an extended base class that also reports the *previous* and the *current* value of a property;
+- d) a base class that keeps property values in an internal store, so a bound property needs no
+  backing field at all.
 
 Everything is plain C# with no reference to WPF assemblies: commands are built on
 `System.Windows.Input.ICommand`, which is part of the .NET Standard 2.0 contract.
@@ -27,6 +29,7 @@ Everything is plain C# with no reference to WPF assemblies: commands are built o
 | Manual requery | `RaiseCanExecuteChanged()` | Re-evaluates `CanExecute` and refreshes the bound control. |
 | Change notification | `NotifyPropertyChangedBase` | `SetValue<T>` compares with `EqualityComparer<T>.Default` and notifies only on a real change. |
 | Change notification with values | `NotifyPropertyChangedWithValuesBase` | Additionally raises `PropertyChangedWithValues` carrying the old and the new value. |
+| Field-free properties | `NotifyPropertyChangedValueStoreBase` | `GetValue<T>()` / `SetValue<T>(value)` read and write the value stored under the property name. |
 | Event payload | `PropertyChangedWithValuesEventArgs<T>` | Immutable `PropertyName`, `PreviousValue`, `CurrentValue`. |
 
 ## Class Diagram
@@ -73,6 +76,11 @@ classDiagram
         #SetValue() bool
     }
 
+    class NotifyPropertyChangedValueStoreBase {
+        #GetValue() T
+        #SetValue() bool
+    }
+
     class PropertyChangedWithValuesEventArgs~T~ {
         +string PropertyName
         +T PreviousValue
@@ -83,6 +91,7 @@ classDiagram
     RelayCommand ..|> ICommand
     NotifyPropertyChangedBase ..|> INotifyPropertyChanged
     NotifyPropertyChangedBase <|-- NotifyPropertyChangedWithValuesBase
+    NotifyPropertyChangedBase <|-- NotifyPropertyChangedValueStoreBase
     NotifyPropertyChangedWithValuesBase ..> PropertyChangedWithValuesEventArgs : raises
 ```
 
@@ -95,6 +104,8 @@ real name.
 - `SetValue<T>(ref T field, T value, string propertyName)` returns `true` only when the value was
   actually stored; `NotifyPropertyChangedWithValuesBase` overrides it, so `PropertyChangedWithValues`
   exists only in the derived branch.
+- `NotifyPropertyChangedValueStoreBase` adds the field-free overload `SetValue<T>(T value, string propertyName)`
+  and `GetValue<T>(string propertyName)`, while keeping the `ref`-based overload available.
 
 ## Installation
 
@@ -198,7 +209,49 @@ public class CounterViewModel : NotifyPropertyChangedBase
 the new value equals the current one. `propertyName` is filled in automatically by
 `[CallerMemberName]`; pass it explicitly if you set a field outside the property setter.
 
-### 4. React to a change with the previous and the current value
+### 4. Bind properties without a backing field
+
+`NotifyPropertyChangedValueStoreBase` keeps values in an internal store keyed by the property name,
+so a bound property is two lines and no fields:
+
+```csharp
+using Infrastructure.Foundation.Bindings;
+
+public class CounterViewModel : NotifyPropertyChangedValueStoreBase
+{
+    public int Count
+    {
+        get => GetValue<int>();
+        set => SetValue(value);
+    }
+
+    public string Message
+    {
+        get => GetValue<string>();
+        set => SetValue(value);
+    }
+}
+```
+
+`SetValue<T>` still notifies only on a real change and returns `true` when the value was stored.
+`propertyName` is filled in by `[CallerMemberName]`; pass it explicitly to read or write the value of
+another property. A property that was never set returns `default` for its type — exactly like a field
+would. Specify the type argument in the getter: C# cannot infer `T` from the property type.
+
+The `ref`-based overload inherited from `NotifyPropertyChangedBase` remains available, so a class can
+mix both styles:
+
+```csharp
+private int _cachedTotal;
+
+public int CachedTotal
+{
+    get => _cachedTotal;
+    set => SetValue(ref _cachedTotal, value);
+}
+```
+
+### 5. React to a change with the previous and the current value
 
 ```csharp
 using Infrastructure.Foundation.Bindings;
@@ -239,6 +292,8 @@ The main types provided by this library are:
   *(base class implementing `INotifyPropertyChanged` with `SetValue<T>` helper)*
 - `Infrastructure.Foundation.Bindings.NotifyPropertyChangedWithValuesBase`
   *(derived class that also raises `PropertyChangedWithValues`)*
+- `Infrastructure.Foundation.Bindings.NotifyPropertyChangedValueStoreBase`
+  *(base class that stores property values by name — no backing fields needed)*
 - `Infrastructure.Foundation.Bindings.PropertyChangedWithValuesEventArgs<T>`
   *(event arguments with `PropertyName`, `PreviousValue`, `CurrentValue`)*
 
@@ -261,9 +316,17 @@ directives explicitly. The package has **no package dependencies**.
   `RaiseCanExecuteChanged()` yourself when the executability condition changes outside the
   property setter.
 - `NotifyPropertyChangedBase` is a class, not an interface: a view model can inherit only one of
-  the two base classes.
+  the three base classes.
 - `PropertyChangedWithValues` is typed as `EventHandler<PropertyChangedWithValuesEventArgs<object>>`,
   so values arrive boxed; unbox them to the property type before use.
+- `NotifyPropertyChangedValueStoreBase` addresses values by property *name*, so two properties with the
+  same name (for example a hiding property in a derived class) share one storage slot.
+- The store keeps every value boxed: `GetValue<T>` casts it back and throws `InvalidCastException` when
+  the stored value is not assignable to `T` (for example a value written with a different type argument).
+- Setting a property to `default` for its type before any other assignment raises no notification, and
+  reading it back returns the same `default` — the store simply stays empty for that property.
+- The store is a plain `Dictionary<string, object>` and is **not** thread-safe: set bound properties
+  from the UI thread, as with the other binding bases.
 - No marshalling to the UI thread is performed. Raise notifications from the UI thread or dispatch
   in the consuming application.
 
@@ -278,14 +341,6 @@ directives explicitly. The package has **no package dependencies**.
 | Authors | Sukhov A.A. |
 | Repository | https://github.com/AntonSukhov/Infrastructure |
 | Tags | `mvvm`, `wpf`, `command`, `dotnet` |
-
-## Related Packages
-
-Part of the `Infrastructure` solution. Packages that are commonly used next to this one:
-
-- `Infrastructure.Disposable` — base class for synchronous and asynchronous resource disposal.
-- `Infrastructure.Shared` — JSON serialization service, configuration and pagination helpers.
-- `Infrastructure.Caching` — generic in-memory cache service.
 
 ## Feedback & Contributing
 
