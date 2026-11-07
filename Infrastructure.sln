@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Mapping.Auto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Foundation", "Infrastructure.Foundation\Infrastructure.Foundation.csproj", "{9715D26C-7206-4AE7-BCAD-32729BFE2B5F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Wpf", "Infrastructure.Wpf\Infrastructure.Wpf.csproj", "{819A6719-A4BB-4C83-BABA-59118950ED23}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -279,6 +281,18 @@ Global
 		{9715D26C-7206-4AE7-BCAD-32729BFE2B5F}.Release|x64.Build.0 = Release|Any CPU
 		{9715D26C-7206-4AE7-BCAD-32729BFE2B5F}.Release|x86.ActiveCfg = Release|Any CPU
 		{9715D26C-7206-4AE7-BCAD-32729BFE2B5F}.Release|x86.Build.0 = Release|Any CPU
+		{819A6719-A4BB-4C83-BABA-59118950ED23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{819A6719-A4BB-4C83-BABA-59118950ED23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{819A6719-A4BB-4C83-BABA-59118950ED23}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{819A6719-A4BB-4C83-BABA-59118950ED23}.Debug|x64.Build.0 = Debug|Any CPU
+		{819A6719-A4BB-4C83-BABA-59118950ED23}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{819A6719-A4BB-4C83-BABA-59118950ED23}.Debug|x86.Build.0 = Debug|Any CPU
+		{819A6719-A4BB-4C83-BABA-59118950ED23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{819A6719-A4BB-4C83-BABA-59118950ED23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{819A6719-A4BB-4C83-BABA-59118950ED23}.Release|x64.ActiveCfg = Release|Any CPU
+		{819A6719-A4BB-4C83-BABA-59118950ED23}.Release|x64.Build.0 = Release|Any CPU
+		{819A6719-A4BB-4C83-BABA-59118950ED23}.Release|x86.ActiveCfg = Release|Any CPU
+		{819A6719-A4BB-4C83-BABA-59118950ED23}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
