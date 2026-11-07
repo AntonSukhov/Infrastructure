@@ -6,11 +6,12 @@
 ## Что это за проект
 
 `Infrastructure` — это набор NuGet-пакетов с переиспользуемой инфраструктурой для .NET-приложений
-(кэш, безопасность, сериализация JSON, маппинг, EF Core, HTTP, MVVM, базовые примитивы для тестов).
+(кэш, безопасность, сериализация JSON, маппинг, EF Core, HTTP, MVVM, WPF-сервисы окон/диалогов/
+регионов, базовые примитивы для тестов).
 Это **библиотека, а не приложение**: исполняемого входа нет, `bin/`/`obj/` — артефакты сборки.
 
 - Автор пакетов: `Sukhov A.A.`, репозиторий: https://github.com/AntonSukhov/Infrastructure
-- Решение: `Infrastructure.sln` (19 проектов), ветка по умолчанию: `main`
+- Решение: `Infrastructure.sln` (20 проектов), ветка по умолчанию: `main`
 - Конфигурации стиля нет: в репозитории **нет** `.editorconfig`, `Directory.Build.props`,
   `Directory.Packages.props` и CI-конфигов. Стилистически ориентируемся на соседний код.
 
@@ -46,6 +47,10 @@ dotnet pack Infrastructure.Shared/Infrastructure.Shared.csproj -c Release -o ./n
     `https://jsonplaceholder.typicode.com/posts`, падает без сети/интернета (таймаут 10 с).
   - `Infrastructure.EntityFramework.Tests` и `Infrastructure.Testing.XUnit` сообщают «нет доступных
     тестов» — в первом пока нет исходников, второй является библиотекой.
+- `Infrastructure.Wpf` таргетит `net48` (`UseWPF=true`): на Linux сборка проходит за счёт
+  автоматически подключаемого `Microsoft.NETFramework.ReferenceAssemblies` (1.0.3), который
+  предоставляет reference-сборки WPF для .NET Framework 4.8. Тестового проекта у `Infrastructure.Wpf`
+  нет; проверить изменения можно только `dotnet build` и `dotnet pack`.
 - Ожидаемые предупреждения сборки: 3 nullable-предупреждения (`CS8600/CS8603/CS8604`) в
   `Infrastructure.EntityFramework/Extensions/QueryableExtensions.cs`. Новых предупреждений быть не должно.
 
@@ -65,6 +70,7 @@ dotnet pack Infrastructure.Shared/Infrastructure.Shared.csproj -c Release -o ./n
 | `Infrastructure.AspNetCore` | net9.0 | 1.0.1 | SDK.Web, `OutputType=Library` | `StartupBase` (Configuration/Environment + виртуальные `ConfigureServices`/`Configure`) |
 | `Infrastructure.Disposable` | net9.0 | 1.0.1 | — | `DisposableBase` — sync/async освобождение ресурсов + финализатор |
 | `Infrastructure.Foundation` | netstandard2.0 | 1.0.0 | — | MVVM: `RelayCommand`, `RelayCommand<T>`, `NotifyPropertyChangedBase`, `NotifyPropertyChangedWithValuesBase` |
+| `Infrastructure.Wpf` | net48 | 1.0.0 | `UseWPF` (WPF-сборки .NET Framework 4.8), NuGet-зависимостей нет | Сервисы UI: `IDialogService`/`DialogService`, `IWindowService`/`WindowService`, `INotificationService`/`MessageBoxNotificationService`, `IRegionService`/`RegionService`, конфигурации `DialogConfiguration`/`WindowConfiguration`/`RegionItemConfiguration`, enum'ы `DialogResult`, `NotificationButton`/`NotificationIcon`/`NotificationResult` |
 | `Infrastructure.Testing` | net9.0 | 1.0.5 | — | Модель тест-сценариев: `TestCase*`, `StubOutput`, `StubOutputKey` |
 | `Infrastructure.Testing.XUnit` | net9.0 | 1.0.2 | xunit | `BaseTest<TFixture>`, `AssertHelper` |
 
@@ -74,24 +80,28 @@ dotnet pack Infrastructure.Shared/Infrastructure.Shared.csproj -c Release -o ./n
 
 Граф зависимостей: `Shared` ← (`EntityFramework`, `Networks`); `Mapping` ← `Mapping.AutoMapper`;
 `Testing` + `Testing.XUnit` ← (`Mapping.Tests`, `Testing.Tests`). Из-за этого правка `Shared`
-или `Mapping` требует сборки/проверки и зависимых пакетов.
+или `Mapping` требует сборки/проверки и зависимых пакетов. `Foundation` и `Wpf` — standalone-библиотеки
+без межпроектных ссылок.
 
 ## Соглашения по коду
 
 - **Пространства имён** совпадают с путём к файлу (`Infrastructure.Caching.Services`). В проектах
   `net9.0` — file-scoped namespace (`namespace X;`) и `ImplicitUsings`/`Nullable` включены. В
-  `Infrastructure.Foundation` и части тестов (`Networks.Tests`, `Testing.XUnit`) — блочные
+  `Infrastructure.Foundation`, `Infrastructure.Wpf` (net48, `Nullable`/`ImplicitUsings` не заданы)
+  и части тестов (`Networks.Tests`, `Testing.XUnit`) — блочные
   неймспейсы и явные `using`; не «унифицируем» это без необходимости.
 - **XML-документация на русском языке** обязательна для публичных членов (`/// <summary>`,
   `<param>`, `<returns>`, `<exception>`); на реализациях интерфейсов достаточно `/// <inheritdoc/>`.
   Часть файлов имеет UTF-8 BOM — не убираем его.
 - **Проверка аргументов** в начале публичных методов: `ArgumentNullException.ThrowIfNull(x, nameof(x))`,
-  `ArgumentException.ThrowIfNullOrWhiteSpace(x)`. Для `netstandard2.0` — `x ?? throw new ArgumentNullException(nameof(x))`.
+  `ArgumentException.ThrowIfNullOrWhiteSpace(x)`. Для `netstandard2.0` и `net48` —
+  `x ?? throw new ArgumentNullException(nameof(x))`.
 - **Члены группировать** `#region Поля / Конструкторы / Методы` там, где в файле это уже принято.
 - Асинхронные методы — суффикс `Async` и возврат `Task`/`ValueTask`; `ConfigureAwait(false)` только
   в библиотеках, вызываемых из UI-кода (см. `DisposableBase`).
 - Новые методы/классы добавляем в существующую структуру папок проекта (`Services/`, `Helpers/`,
-  `Extensions/`, `Models/`, `Interfaces/`, `Enums/`, `DbContexts/`, `Bindings/`, `Commands/`).
+  `Extensions/`, `Models/`, `Interfaces/`, `Enums/`, `DbContexts/`, `Bindings/`, `Commands/`,
+  `Configurations/`).
 - Любая правка публичного API пакета требует обновления версии `Version` в `.csproj` (semver) —
   но только если об этом есть явная просьба пользователя; иначе версию не трогаем.
 
