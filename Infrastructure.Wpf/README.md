@@ -503,13 +503,6 @@ The package has **no NuGet dependencies** — it references only WPF assemblies 
 | Repository | https://github.com/AntonSukhov/Infrastructure |
 | Tags | `wpf`, `mvvm`, `dialog`, `notification`, `region`, `window`, `tabcontrol`, `loading`, `adorner`, `attached-property` |
 
-## Related Packages
-
-- **Infrastructure.Foundation** — MVVM primitives (`RelayCommand`, `NotifyPropertyChangedBase`),
-  typically used together with these WPF services in view models.
-- **Infrastructure.Shared** — JSON serialization and configuration helpers, commonly consumed by
-  the services that back the dialogs and windows shown through this package.
-
 ## Feedback & Contributing
 
 Infrastructure.Wpf is released as open source under the MIT license.
