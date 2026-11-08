@@ -19,7 +19,9 @@ The package provides:
 - c) `INotificationService` / `MessageBoxNotificationService` — display a `MessageBox` and return
   a typed result (`NotificationResult`);
 - d) `IRegionService` / `RegionService` — manage a `TabControl` as a region of tabbed views,
-  adding, switching, and closing tabs.
+  adding, switching, and closing tabs;
+- e) `LoadingAdorner` / `LoadingAdornerHelper` — show a semi-transparent overlay with a
+  progress bar over any `UIElement` via a single attached property (`IsLoading`).
 
 Everything is plain C# targeting .NET Framework 4.8 with `UseWPF`. The package has **no external
 NuGet dependencies** — it references only WPF assemblies that ship with the framework.
@@ -31,6 +33,7 @@ NuGet dependencies** — it references only WPF assemblies that ship with the fr
 | Dialog factory | `DialogConfiguration` | Maps a ViewModel type to a window factory and optional owner factory. |
 | Window factory | `WindowConfiguration` | Maps a ViewModel type to a window factory, owner factory, and flags (`IsModal`, `AllowMultipleInstances`). |
 | Region item factory | `RegionItemConfiguration` | Maps a ViewModel type to a `UserControl` factory and a tab title. |
+| Loading indicator | `LoadingAdornerHelper` | Attached property `IsLoading` that shows/hides a semi-transparent overlay with a progress bar over any `UIElement`. |
 | Dialog service | `DialogService` | Resolves the configuration by the runtime type of the view model, sets `DataContext`, shows the dialog, and returns a typed result. |
 | Window service | `WindowService` | Resolves configuration, activates an existing window or creates a new one, and shows it (modal or modeless). |
 | Notification service | `MessageBoxNotificationService` | Maps WPF `MessageBoxButton` / `MessageBoxImage` / `MessageBoxResult` to domain enums and returns a typed result. |
@@ -94,6 +97,28 @@ classDiagram
     IRegionService ..|> RegionService
 ```
 
+### Loading indicator
+
+```mermaid
+classDiagram
+    direction LR
+
+    class Adorner {
+        <<abstract>>
+    }
+
+    class LoadingAdorner
+
+    class LoadingAdornerHelper {
+        +IsLoadingProperty
+        +GetIsLoading() bool
+        +SetIsLoading()
+    }
+
+    Adorner <|-- LoadingAdorner
+    LoadingAdornerHelper ..> LoadingAdorner : creates
+```
+
 - `IDialogService.Show~TViewModel~(TViewModel viewModel) where TViewModel : class` — shows a modal
   dialog and returns `DialogResult`.
 - `IWindowService.Show~TViewModel~(TViewModel viewModel) where TViewModel : class` — shows a regular
@@ -112,7 +137,7 @@ or in the project file:
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="Infrastructure.Wpf" Version="1.0.0" />
+  <PackageReference Include="Infrastructure.Wpf" Version="1.1.0" />
 </ItemGroup>
 ```
 
@@ -278,42 +303,94 @@ if (confirmation == NotificationResult.Yes)
 The service maps WPF `MessageBoxButton` / `MessageBoxImage` / `MessageBoxResult` to domain enums
 and returns a typed `NotificationResult`.
 
-### 5. Show a dialog with a result
+### 6. Show a loading indicator over any control
+
+`LoadingAdornerHelper` exposes an attached property `IsLoading` that can be bound to a boolean
+property on the view model. When the property becomes `true`, a semi-transparent overlay with
+a progress bar is placed over the target element; when it returns to `false`, the overlay is
+removed. The overlay blocks user interaction with the underlying element, preventing accidental
+operations while data is being fetched.
+
+Declare the namespace in XAML:
+
+```xml
+<Window x:Class="MyApp.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:interactivity="clr-namespace:Infrastructure.Wpf.Interactivity;assembly=Infrastructure.Wpf">
+```
+
+Bind `IsLoading` to any element — for example, wrap the main content area in a `Grid`:
+
+```xml
+<Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <DataGrid Grid.Row="1"
+              ItemsSource="{Binding Employees}"
+              interactivity:LoadingAdornerHelper.IsLoading="{Binding IsBusy}"/>
+</Grid>
+```
+
+In the view model, set the property before and after a long-running operation:
 
 ```csharp
-using System;
-using System.Collections.Generic;
-using System.Windows;
-using Infrastructure.Wpf.Configurations;
-using Infrastructure.Wpf.Enums;
-using Infrastructure.Wpf.Services.Dialogs;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
-// At composition root:
-var dialogConfigurations = new Dictionary<Type, DialogConfiguration>
+public class EmployeesViewModel : INotifyPropertyChanged
 {
+    private bool _isBusy;
+    private readonly IEmployeesRepository _repository;
+
+    public ICommand LoadCommand { get; }
+
+    public EmployeesViewModel(IEmployeesRepository repository)
     {
-        typeof(EditorViewModel),
-        new DialogConfiguration
+        _repository = repository;
+        LoadCommand = new RelayCommand(async _ => await LoadAsync());
+    }
+
+    public bool IsBusy
+    {
+        get => _isBusy;
+        private set => SetProperty(ref _isBusy, value);
+    }
+
+    private async Task LoadAsync()
+    {
+        IsBusy = true;
+        try
         {
-            WindowFactory = () => new EditorWindow(),
-            OwnerFactory = () => Application.Current.MainWindow
+            Employees = await _repository.GetAllAsync();
+        }
+        finally
+        {
+            IsBusy = false;
         }
     }
-};
 
-IDialogService dialogService = new DialogService(dialogConfigurations);
+    public event PropertyChangedEventHandler PropertyChanged;
 
-// In a view model, after DI:
-var result = dialogService.Show(new EditorViewModel());
-
-if (result == DialogResult.Confirmed)
-{
-    // reload
+    private bool SetProperty<T>(ref T field, T value, [CallerMemberName] string name = null)
+    {
+        if (Equals(field, value)) return false;
+        field = value;
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        return true;
+    }
 }
 ```
 
-`DialogService` resolves the configuration by the **runtime type** of the argument. A base-class
-variable still finds the derived registration.
+The attached property only works on elements inside an `AdornerLayer` (top-level windows,
+`Popup`, or elements inside an `AdornerDecorator`). If `AdornerLayer.GetAdornerLayer`
+returns `null`, the property silently does nothing — no error is raised.
 
 ## Main Types
 
@@ -349,6 +426,10 @@ The main types provided by this library are:
   *(manages a `TabControl` as a region: shows, switches, and closes tabbed views)*
 - `Infrastructure.Wpf.Services.Regions.RegionService`
   *(adds `TabItem`s with title and close button; resolves `RegionItemConfiguration` by the static type `TViewModel`)*
+- `Infrastructure.Wpf.Interactivity.LoadingAdornerHelper`
+  *(attached property `IsLoading` that shows/hides a semi-transparent overlay with a progress bar over any `UIElement`)*
+- `Infrastructure.Wpf.Interactivity.LoadingAdorner`
+  *(the adorner itself — a semi-transparent panel with centered text and an indeterminate `ProgressBar`)*
 
 ## Target Framework & Compatibility
 
@@ -394,18 +475,40 @@ The package has **no NuGet dependencies** — it references only WPF assemblies 
   factories).
 - No marshalling to the UI thread is performed. Call services from the UI thread or dispatch in the
   consuming application.
+- `LoadingAdornerHelper.IsLoading` only works on elements that have an `AdornerLayer` — top-level
+  windows, `Popup`, or elements placed inside an `AdornerDecorator`. If `AdornerLayer.GetAdornerLayer`
+  returns `null`, the attached property silently does nothing: no overlay is shown and no error
+  is raised.
+- The overlay blocks user interaction with the adorned element. `LoadingAdorner` paints a
+  semi-transparent white `Grid` that intercepts hit-tests, so clicks and keyboard input on the
+  underlying control are ignored while `IsLoading` is `true`.
+- `LoadingAdornerHelper` prevents duplicate adorners: if `IsLoading` is set to `true` multiple
+  times in a row, the existing `LoadingAdorner` is reused rather than creating a new one.
+- The default overlay text is `"Загрузка данных..."` (Russian). Pass a custom string to the
+  `LoadingAdorner` constructor — the helper currently does not expose a way to set it, so
+  applications that need a different text should create a derived helper or set the property
+  through a custom attached property.
+- No marshalling to the UI thread is performed for `IsLoading` changes. Set the property only
+  from the UI thread to avoid `InvalidOperationException`.
 
 ## Package Details
 
 | Property | Value |
 | --- | --- |
 | Package ID | `Infrastructure.Wpf` |
-| Version | `1.0.0` |
+| Version | `1.1.0` |
 | Target framework | `.NET Framework 4.8` |
 | License | MIT |
 | Authors | Sukhov A.A. |
 | Repository | https://github.com/AntonSukhov/Infrastructure |
-| Tags | `wpf`, `mvvm`, `dialog`, `notification`, `region`, `window`, `tabcontrol` |
+| Tags | `wpf`, `mvvm`, `dialog`, `notification`, `region`, `window`, `tabcontrol`, `loading`, `adorner`, `attached-property` |
+
+## Related Packages
+
+- **Infrastructure.Foundation** — MVVM primitives (`RelayCommand`, `NotifyPropertyChangedBase`),
+  typically used together with these WPF services in view models.
+- **Infrastructure.Shared** — JSON serialization and configuration helpers, commonly consumed by
+  the services that back the dialogs and windows shown through this package.
 
 ## Feedback & Contributing
 

@@ -5,10 +5,10 @@
     <UseWPF>true</UseWPF>
 
     <PackageId>Infrastructure.Wpf</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <Authors>Sukhov A.A.</Authors>
-    <Description>A WPF-specific NuGet package providing window management services, dialog and notification helpers, and region (tab-based area) management for MVVM applications. Uses a factory-based configuration pattern — map ViewModel types to views and let the services handle creation, ownership, and lifecycle. Designed for .NET Framework 4.8 with WPF. No external NuGet dependencies.</Description>
-    <PackageTags>wpf;mvvm;dialog;notification;region;window;tabcontrol</PackageTags>
+    <Description>A WPF-specific NuGet package providing window management services, dialog and notification helpers, region (tab-based area) management, and an overlay loading indicator (adorner) for MVVM applications. Uses a factory-based configuration pattern — map ViewModel types to views and let the services handle creation, ownership, and lifecycle. The loading indicator is driven by a single attached property bound to a view model flag. Designed for .NET Framework 4.8 with WPF. No external NuGet dependencies.</Description>
+    <PackageTags>wpf;mvvm;dialog;notification;region;window;tabcontrol;loading;adorner;attached-property</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/AntonSukhov/Infrastructure.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/AntonSukhov/Infrastructure</PackageProjectUrl>
